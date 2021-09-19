@@ -1,7 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Newtonsoft.Json;
-using PaymentProcessAPI.Model.Dtos;
 using Stripe;
 using Stripe.Checkout;
 using System;

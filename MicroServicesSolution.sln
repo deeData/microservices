@@ -9,7 +9,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WebAppMVC", "WebAppMVC\WebA
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Services", "Services", "{CBDF0716-F167-4FBB-9994-82026F747EFF}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BillingApi", "PaymentProcessAPI\BillingApi.csproj", "{2DA171BA-4709-4767-BD4C-93D5A53408D6}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BillingApi", "BillingApi\BillingApi.csproj", "{069C4E01-5DD8-4DC9-A69A-6F9A0A5A2E4E}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -21,17 +21,17 @@ Global
 		{02A5E672-2D61-41DC-B401-440D85BC8C22}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{02A5E672-2D61-41DC-B401-440D85BC8C22}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{02A5E672-2D61-41DC-B401-440D85BC8C22}.Release|Any CPU.Build.0 = Release|Any CPU
-		{2DA171BA-4709-4767-BD4C-93D5A53408D6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{2DA171BA-4709-4767-BD4C-93D5A53408D6}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{2DA171BA-4709-4767-BD4C-93D5A53408D6}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{2DA171BA-4709-4767-BD4C-93D5A53408D6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{069C4E01-5DD8-4DC9-A69A-6F9A0A5A2E4E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{069C4E01-5DD8-4DC9-A69A-6F9A0A5A2E4E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{069C4E01-5DD8-4DC9-A69A-6F9A0A5A2E4E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{069C4E01-5DD8-4DC9-A69A-6F9A0A5A2E4E}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{02A5E672-2D61-41DC-B401-440D85BC8C22} = {C541ABD1-4CAF-42BF-9826-AA454BEE2976}
-		{2DA171BA-4709-4767-BD4C-93D5A53408D6} = {CBDF0716-F167-4FBB-9994-82026F747EFF}
+		{069C4E01-5DD8-4DC9-A69A-6F9A0A5A2E4E} = {CBDF0716-F167-4FBB-9994-82026F747EFF}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {D8C33EFC-04A3-432F-BC0F-9A55458E169A}
