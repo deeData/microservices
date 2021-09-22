@@ -1,0 +1,69 @@
+﻿@model List<LedgerItemDto>
+
+@{
+    Layout = "~/Views/Shared/_LayoutPayment.cshtml";
+}
+
+@section Styles{
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.10.16/css/jquery.dataTables.min.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/css/toastr.min.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.3/sweetalert.min.css" />
+}
+
+
+<table id="dataTable" class="display">
+    <thead>
+        <tr>
+            <th>Posted</th>
+            <th>Billing Entry</th>
+            <th>Debit</th>
+            <th>Credit</th>
+            <th>End Balance</th>
+            <th>Remarks</th>
+        </tr>
+    </thead>
+    <tbody id="tbodyTest">
+        @{double runningTotal = 0; }
+        @foreach (var item in @Model)
+        {
+            runningTotal += (item.Debit + item.Credit);
+        <tr>
+            <td>@item.Posted</td>
+            <td>@item.Description</td>
+            <td>@string.Format("{0:c}", item.Debit)</td>
+            <td>@string.Format("{0:c}", item.Credit)</td>
+            @if (Model.IndexOf(item) == Model.Count() - 1)
+            {
+                <td style="font-weight:bold">@string.Format("{0:c}", runningTotal)</td>
+            }
+            else
+            {
+                <td>@string.Format("{0:c}", runningTotal)</td>
+            }
+            <td>@item.Remarks</td>
+        </tr>
+        }
+
+
+
+
+    </tbody>
+</table>
+
+
+@section Scripts{
+    <script src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
+
+    <script>
+        $(document).ready(function () {
+            $('#dataTable').DataTable();
+        });
+
+    </script>
+
+
+
+
+}

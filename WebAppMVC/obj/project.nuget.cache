@@ -1,10 +1,11 @@
 {
   "version": 2,
-  "dgSpecHash": "F7LCJbZMLcsUAVrAefmpTSFUJ0ZAK1b9rU4wRouttm+dfgWIIkpoCs51D+fY6nZmOdUqtb/Bj9v7u35PNptuDg==",
+  "dgSpecHash": "y/TrMQdOW6Ea/8O0xFOjB6dNTH50GvC5+JoA8M91wO0SFKcnJKyDkbFzGr1akxClgbSpSLYA5kyF39G4fXozJQ==",
   "success": true,
   "projectFilePath": "C:\\Users\\deidr\\repos\\microservices\\MicroServicesSolution\\WebAppMVC\\WebAppMVC.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\deidr\\.nuget\\packages\\humanizer.core\\2.2.0\\humanizer.core.2.2.0.nupkg.sha512",
+    "C:\\Users\\deidr\\.nuget\\packages\\jquery\\3.6.0\\jquery.3.6.0.nupkg.sha512",
     "C:\\Users\\deidr\\.nuget\\packages\\microsoft.aspnetcore.html.abstractions\\2.2.0\\microsoft.aspnetcore.html.abstractions.2.2.0.nupkg.sha512",
     "C:\\Users\\deidr\\.nuget\\packages\\microsoft.aspnetcore.mvc.razor.extensions\\5.0.10\\microsoft.aspnetcore.mvc.razor.extensions.5.0.10.nupkg.sha512",
     "C:\\Users\\deidr\\.nuget\\packages\\microsoft.aspnetcore.mvc.razor.runtimecompilation\\5.0.10\\microsoft.aspnetcore.mvc.razor.runtimecompilation.5.0.10.nupkg.sha512",

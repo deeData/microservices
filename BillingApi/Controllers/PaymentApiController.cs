@@ -53,7 +53,7 @@ namespace PaymentApi.Controllers
 
 
         [HttpPost("secret")]
-        public ActionResult GetSecret(PaymentIntentCreateRequest request)
+        public ActionResult GetSecret([FromBody]PaymentIntentCreateRequest request)
         {
             var paymentIntents = new PaymentIntentService();
             var paymentIntent = paymentIntents.Create(new PaymentIntentCreateOptions
@@ -70,7 +70,8 @@ namespace PaymentApi.Controllers
             // Replace this constant with a calculation of the order's amount
             // Calculate the order total on the server to prevent
             // people from directly manipulating the amount on the client
-            return 1400;
+            int cents = Convert.ToInt32(items[0].Amount) * 100;
+            return cents;
         }
     }
 
@@ -78,6 +79,9 @@ namespace PaymentApi.Controllers
     {
         [JsonProperty("id")]
         public string Id { get; set; }
+
+        [JsonProperty("amount")]
+        public double Amount { get; set; }
     }
 
     public class PaymentIntentCreateRequest

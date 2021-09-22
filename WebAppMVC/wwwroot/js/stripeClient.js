@@ -3,7 +3,7 @@ var stripe = Stripe("pk_test_iJIKag44gtZYLPOvNj6bLCJH");
 
 // The items the customer wants to buy
 var purchase = {
-  items: [{ id: "xl-tshirt" }]
+    items: [{ id: "xl-tshirt", amount: 2.00  }]
 };
 
 // Disable the button until we have Stripe set up on the page
@@ -11,7 +11,7 @@ document.querySelector("button").disabled = true;
 fetch("https://localhost:44372/api/payment/secret", {
   method: "POST",
   headers: {
-    "Content-Type": "application/json"
+      "Content-Type": "application/json"
   },
   body: JSON.stringify(purchase)
 })
