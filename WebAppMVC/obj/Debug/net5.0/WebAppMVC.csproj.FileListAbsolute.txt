@@ -9,7 +9,6 @@ C:\Users\deidr\repos\microservices\MicroServicesSolution\WebAppMVC\bin\Debug\net
 C:\Users\deidr\repos\microservices\MicroServicesSolution\WebAppMVC\bin\Debug\net5.0\WebAppMVC.pdb
 C:\Users\deidr\repos\microservices\MicroServicesSolution\WebAppMVC\bin\Debug\net5.0\WebAppMVC.Views.dll
 C:\Users\deidr\repos\microservices\MicroServicesSolution\WebAppMVC\bin\Debug\net5.0\WebAppMVC.Views.pdb
-C:\Users\deidr\repos\microservices\MicroServicesSolution\WebAppMVC\obj\Debug\net5.0\WebAppMVC.csproj.AssemblyReference.cache
 C:\Users\deidr\repos\microservices\MicroServicesSolution\WebAppMVC\obj\Debug\net5.0\WebAppMVC.GeneratedMSBuildEditorConfig.editorconfig
 C:\Users\deidr\repos\microservices\MicroServicesSolution\WebAppMVC\obj\Debug\net5.0\WebAppMVC.AssemblyInfoInputs.cache
 C:\Users\deidr\repos\microservices\MicroServicesSolution\WebAppMVC\obj\Debug\net5.0\WebAppMVC.AssemblyInfo.cs
@@ -408,4 +407,8 @@ C:\Users\deidr\repos\microservices\MicroServicesSolution\WebAppMVC\bin\Debug\net
 C:\Users\deidr\repos\microservices\MicroServicesSolution\WebAppMVC\bin\Debug\net5.0\bundleconfig.json
 C:\Users\deidr\repos\microservices\MicroServicesSolution\WebAppMVC\obj\Debug\net5.0\Razor\Views\Shared\_LayoutPayment.cshtml.g.cs
 C:\Users\deidr\repos\microservices\MicroServicesSolution\WebAppMVC\obj\Debug\net5.0\Razor\Views\Account\Ledger.cshtml.g.cs
-C:\Users\deidr\repos\microservices\MicroServicesSolution\WebAppMVC\obj\Debug\net5.0\Razor\Views\Account\_OrderEntryPartial.cshtml.g.cs
+C:\Users\deidr\repos\microservices\MicroServicesSolution\WebAppMVC\obj\Debug\net5.0\Razor\Views\Account\Test.cshtml.g.cs
+C:\Users\deidr\repos\microservices\MicroServicesSolution\WebAppMVC\obj\Debug\net5.0\Razor\Views\Shared\_LayoutBilling.cshtml.g.cs
+C:\Users\deidr\repos\microservices\MicroServicesSolution\WebAppMVC\obj\Debug\net5.0\WebAppMVC.csproj.AssemblyReference.cache
+C:\Users\deidr\repos\microservices\MicroServicesSolution\WebAppMVC\obj\Debug\net5.0\Razor\Views\Billing\Payment.cshtml.g.cs
+C:\Users\deidr\repos\microservices\MicroServicesSolution\WebAppMVC\obj\Debug\net5.0\Razor\Views\Billing\Test.cshtml.g.cs

@@ -28,14 +28,11 @@ namespace WebAppMVC.Controllers
             return View(ledgerItems);
         }
 
-        [HttpPost]
-        public IActionResult PostOrder()
+        [HttpGet]
+        public IActionResult Test()
         {
             return View();
         }
-
-        
-
 
 
     }

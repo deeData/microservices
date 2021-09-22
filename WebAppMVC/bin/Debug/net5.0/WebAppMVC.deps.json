@@ -33,9 +33,11 @@
     ".NETCoreApp,Version=v5.0": {
       "WebAppMVC/1.0.0": {
         "dependencies": {
+          "Bootstrap-Table": "0.4.0",
           "Microsoft.AspNetCore.Mvc.Razor.RuntimeCompilation": "5.0.10",
           "Microsoft.VisualStudio.Web.CodeGeneration.Design": "5.0.2",
           "Stripe.net": "39.68.0",
+          "jQuery": "3.6.0",
           "Microsoft.AspNetCore.Antiforgery": "5.0.0.0",
           "Microsoft.AspNetCore.Authentication.Abstractions": "5.0.0.0",
           "Microsoft.AspNetCore.Authentication.Cookies": "5.0.0.0",
@@ -327,6 +329,12 @@
           "WebAppMVC.dll": {}
         }
       },
+      "Bootstrap-Table/0.4.0": {
+        "dependencies": {
+          "Twitter.Bootstrap": "2.0.3",
+          "jQuery": "3.6.0"
+        }
+      },
       "Humanizer.Core/2.2.0": {
         "dependencies": {
           "NETStandard.Library": "1.6.1"
@@ -338,6 +346,7 @@
           }
         }
       },
+      "jQuery/3.6.0": {},
       "Microsoft.AspNetCore.Html.Abstractions/2.2.0": {
         "dependencies": {
           "System.Text.Encodings.Web": "4.5.0"
@@ -1696,6 +1705,7 @@
           "System.Xml.ReaderWriter": "4.3.0"
         }
       },
+      "Twitter.Bootstrap/2.0.3": {},
       "Microsoft.AspNetCore.Antiforgery/5.0.0.0": {
         "compile": {
           "Microsoft.AspNetCore.Antiforgery.dll": {}
@@ -3402,12 +3412,26 @@
       "serviceable": false,
       "sha512": ""
     },
+    "Bootstrap-Table/0.4.0": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-ESK4ugRVJv3psHTMhRsay6nwaHcjNbIdtNUNSYtZNZKOSnrx1R3BJqDK9lhMO25FBVfVaF3bGSpTb+nC/qERnQ==",
+      "path": "bootstrap-table/0.4.0",
+      "hashPath": "bootstrap-table.0.4.0.nupkg.sha512"
+    },
     "Humanizer.Core/2.2.0": {
       "type": "package",
       "serviceable": true,
       "sha512": "sha512-rsYXB7+iUPP8AHgQ8JP2UZI2xK2KhjcdGr9E6zX3CsZaTLCaw8M35vaAJRo1rfxeaZEVMuXeaquLVCkZ7JcZ5Q==",
       "path": "humanizer.core/2.2.0",
       "hashPath": "humanizer.core.2.2.0.nupkg.sha512"
+    },
+    "jQuery/3.6.0": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-sSzCTDWn15waSMjDrP21jjgG1j1pwISLaKiVCClwU4XGAmuZt+FScLkdyRvh9ppoIxAW/tJtJBYei+3CAwFQ7g==",
+      "path": "jquery/3.6.0",
+      "hashPath": "jquery.3.6.0.nupkg.sha512"
     },
     "Microsoft.AspNetCore.Html.Abstractions/2.2.0": {
       "type": "package",
@@ -4241,6 +4265,13 @@
       "sha512": "sha512-5zJ0XDxAIg8iy+t4aMnQAu0MqVbqyvfoUVl1yDV61xdo3Vth45oA2FoY4pPkxYAH5f8ixpmTqXeEIya95x0aCQ==",
       "path": "system.xml.xdocument/4.3.0",
       "hashPath": "system.xml.xdocument.4.3.0.nupkg.sha512"
+    },
+    "Twitter.Bootstrap/2.0.3": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-nav2nKSM8sadi5YBDyMeMkSxYUR9HLFBe3iOqsFc0phYtgY2uZkHOLogONbFoS90UrwzRQVjcpgHnFtJ0Xil7Q==",
+      "path": "twitter.bootstrap/2.0.3",
+      "hashPath": "twitter.bootstrap.2.0.3.nupkg.sha512"
     },
     "Microsoft.AspNetCore.Antiforgery/5.0.0.0": {
       "type": "referenceassembly",

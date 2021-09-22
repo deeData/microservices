@@ -2,6 +2,13 @@
   "version": 3,
   "targets": {
     "net5.0": {
+      "Bootstrap-Table/0.4.0": {
+        "type": "package",
+        "dependencies": {
+          "Twitter.Bootstrap": "2.0.3",
+          "jQuery": "1.7.2"
+        }
+      },
       "Humanizer.Core/2.2.0": {
         "type": "package",
         "dependencies": {
@@ -2013,10 +2020,25 @@
         "runtime": {
           "lib/netstandard1.3/System.Xml.XDocument.dll": {}
         }
+      },
+      "Twitter.Bootstrap/2.0.3": {
+        "type": "package"
       }
     }
   },
   "libraries": {
+    "Bootstrap-Table/0.4.0": {
+      "sha512": "ESK4ugRVJv3psHTMhRsay6nwaHcjNbIdtNUNSYtZNZKOSnrx1R3BJqDK9lhMO25FBVfVaF3bGSpTb+nC/qERnQ==",
+      "type": "package",
+      "path": "bootstrap-table/0.4.0",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "bootstrap-table.0.4.0.nupkg.sha512",
+        "bootstrap-table.nuspec",
+        "content/Scripts/bootstrap-table.js"
+      ]
+    },
     "Humanizer.Core/2.2.0": {
       "sha512": "rsYXB7+iUPP8AHgQ8JP2UZI2xK2KhjcdGr9E6zX3CsZaTLCaw8M35vaAJRo1rfxeaZEVMuXeaquLVCkZ7JcZ5Q==",
       "type": "package",
@@ -6819,10 +6841,30 @@
         "system.xml.xdocument.4.3.0.nupkg.sha512",
         "system.xml.xdocument.nuspec"
       ]
+    },
+    "Twitter.Bootstrap/2.0.3": {
+      "sha512": "nav2nKSM8sadi5YBDyMeMkSxYUR9HLFBe3iOqsFc0phYtgY2uZkHOLogONbFoS90UrwzRQVjcpgHnFtJ0Xil7Q==",
+      "type": "package",
+      "path": "twitter.bootstrap/2.0.3",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "content/Content/bootstrap-responsive.css",
+        "content/Content/bootstrap-responsive.min.css",
+        "content/Content/bootstrap.css",
+        "content/Content/bootstrap.min.css",
+        "content/Content/images/glyphicons-halflings-white.png",
+        "content/Content/images/glyphicons-halflings.png",
+        "content/Scripts/bootstrap.js",
+        "content/Scripts/bootstrap.min.js",
+        "twitter.bootstrap.2.0.3.nupkg.sha512",
+        "twitter.bootstrap.nuspec"
+      ]
     }
   },
   "projectFileDependencyGroups": {
     "net5.0": [
+      "Bootstrap-Table >= 0.4.0",
       "Microsoft.AspNetCore.Mvc.Razor.RuntimeCompilation >= 5.0.10",
       "Microsoft.VisualStudio.Web.CodeGeneration.Design >= 5.0.2",
       "Stripe.net >= 39.68.0",
@@ -6873,6 +6915,10 @@
       "net5.0": {
         "targetAlias": "net5.0",
         "dependencies": {
+          "Bootstrap-Table": {
+            "target": "Package",
+            "version": "[0.4.0, )"
+          },
           "Microsoft.AspNetCore.Mvc.Razor.RuntimeCompilation": {
             "target": "Package",
             "version": "[5.0.10, )"

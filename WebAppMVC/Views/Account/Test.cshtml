@@ -1,4 +1,9 @@
-﻿
+﻿@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+
 
 <div class="row p-4">
     <div class="col-3">
@@ -19,5 +24,22 @@
 </div>
 
 
+@section Scripts{
+
+    <script type="text/javascript">
+        var amount1 = 0;
+        $('#amounts li').on('click', function () {
+            $('#amt').val($(this).text());
+            amount1 = $('#amt').val();
+            console.log(amount1);
+            var purchase = {
+                items: [{ id: "xl-tshirt", amount: amount1 }]
+            };
+
+        });
+
+    </script>
 
 
+
+}

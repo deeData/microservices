@@ -1,0 +1,171 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=yes">
+    <title>Billing Dashboard</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css">
+    <link rel="stylesheet" href="~/css/Dashboard/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/Dashboard/dataTables.bootstrap5.min.css" />
+    <link rel="stylesheet" href="~/css/Dashboard/style.css" />
+    @await RenderSectionAsync("Styles", required: false)
+
+</head>
+
+<body>
+    @*navbar*@
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
+        <div class="container-fluid">
+            @*<a class="btn btn-primary" data-bs-toggle="offcanvas" href="#offcanvasExample" role="button" aria-controls="offcanvasExample">
+                    Link with href
+                </a>*@
+            @*Offcanvas sidebar trigger*@
+            <button class="navbar-toggler me-2" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasExample" aria-controls="offcanvasExample">
+                <span class="navbar-toggler-icon" data-bs-target="#offcanvasExample"></span>
+            </button>
+
+            <a class="navbar-brand fw-bold me-auto" href="#">Billing Account</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav mb-2 mb-lg-0">
+                    <li class="nav-item">
+                        <a class="nav-link active" aria-current="page" href="#">Home</a>
+                    </li>
+                </ul>
+                <form class="d-flex ms-auto">
+                    <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+                    <button class="btn btn-outline-primary" type="submit">Search</button>
+                </form>
+                <ul>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            <i class="bi bi-person-fill"></i>
+                        </a>
+                        <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
+                            <li><a class="dropdown-item" href="#">Action</a></li>
+                            <li><a class="dropdown-item" href="#">Another action</a></li>
+                            <li><hr class="dropdown-divider"></li>
+                            <li><a class="dropdown-item" href="#">Something else here</a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    @*offcanvas side panel---- custom css: sidebar-nav*@
+    <div class="offcanvas offcanvas-start bg-dark text-white sidebar-nav" tabindex="-1" id="offcanvasExample" aria-labelledby="offcanvasExampleLabel">
+        <div class="offcanvas-body p-0">
+            <nav class="navbar-dark">
+                <ul class="navbar-nav">
+                    <li>
+                        <div class="text-muted small fw-bold text-uppercase px-3 pt-3">CORE</div>
+                    </li>
+                    <li>
+                        <a href="#" class="nav-link px-3 active me-2"></a>
+                        <span class="me-2"><i class="bi bi-speedometer2 px-3"></i></span>
+                        <span>Dashboard</span>
+                    </li>
+                    <li class="my-4">
+                        <hr class="dropdown-divider" />
+                    </li>
+                    <li>
+                        <div class="text-muted small fw-bold text-uppercase px-3 pt-3">TEST ORDER</div>
+                    </li>
+                    @*Prescribed charge order*@
+                    <li class="row p-4">
+                        <div class="">
+                            <div class="dropdown">
+                                <button class="btn btn-success dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    Select Charge Amount$
+                                </button>
+                                <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton" id="amounts">
+                                    <li class="dropdown-item" href="#">$0.01</li>
+                                    <li class="dropdown-item" href="#">$0.02</li>
+                                    <li class="dropdown-item" href="#">$0.03</li>
+                                    <li class="dropdown-item" href="#">$0.04</li>
+                                </ul>
+                            </div>
+                            <div class="mt-4">
+                                <input class="form-control" type="text" id="amt" readonly />
+                            </div>
+                            <div class="mt-4">
+                                <button class="btn btn-danger">Charge to Ledger</button>
+                            </div>
+                        </div>
+                    </li>
+                    @*END-----Charge order*@
+                </ul>
+            </nav>
+
+        </div>
+    </div>
+
+    @*main*@
+    <main class="mt-5 pt-3">
+        <div class="container-fluid">
+            <div class="row mt-3 mb-2">
+                <div class="col-md-12 fw-bold fs-3">Dashboard</div>
+            </div>
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="card text-white bg-primary mb-3" style="max-width: 18rem;">
+                        <div class="card-header">Header</div>
+                        <div class="card-body">
+                            <h5 class="card-title">Primary card title</h5>
+                            <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-6">
+                    <div class="card text-white bg-primary mb-3" style="max-width: 18rem;">
+                        <div class="card-header">Header</div>
+                        <div class="card-body">
+                            <h5 class="card-title">Primary card title</h5>
+                            <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+
+
+        <div class="container-fluid">
+            @RenderBody()
+        </div>
+
+    </main>
+
+    <script src="~/js/Dashboard/bootstrap.bundle.min.js"></script>
+    <script src="~/js/Dashboard/jquery-3.5.1.js"></script>
+    <script src="~/js/Dashboard/jquery.dataTables.min.js"></script>
+    <script src="~/js/Dashboard/dataTables.bootstrap5.min.js"></script>
+    <script src="~/js/Dashboard/script.js"></script>
+
+    @*bill charge section*@
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script type="text/javascript">
+        var amount1 = 0;
+        $('#amounts li').on('click', function () {
+            $('#amt').val($(this).text());
+            amount1 = $('#amt').val();
+            console.log(amount1);
+            var purchase = {
+                items: [{ id: "xl-tshirt", amount: amount1 }]
+            };
+
+        });
+
+    </script>
+
+
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+
+</html>

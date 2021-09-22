@@ -1,9 +1,10 @@
 {
   "version": 2,
-  "dgSpecHash": "y/TrMQdOW6Ea/8O0xFOjB6dNTH50GvC5+JoA8M91wO0SFKcnJKyDkbFzGr1akxClgbSpSLYA5kyF39G4fXozJQ==",
+  "dgSpecHash": "nrSLPV0DsOh/SDwv1tygxIZewnqNIdO8jaA2+OGk3+R5DfdSvakeiLGcQkVKNur4VYOcyZoGLT2TKaj/voDREg==",
   "success": true,
   "projectFilePath": "C:\\Users\\deidr\\repos\\microservices\\MicroServicesSolution\\WebAppMVC\\WebAppMVC.csproj",
   "expectedPackageFiles": [
+    "C:\\Users\\deidr\\.nuget\\packages\\bootstrap-table\\0.4.0\\bootstrap-table.0.4.0.nupkg.sha512",
     "C:\\Users\\deidr\\.nuget\\packages\\humanizer.core\\2.2.0\\humanizer.core.2.2.0.nupkg.sha512",
     "C:\\Users\\deidr\\.nuget\\packages\\jquery\\3.6.0\\jquery.3.6.0.nupkg.sha512",
     "C:\\Users\\deidr\\.nuget\\packages\\microsoft.aspnetcore.html.abstractions\\2.2.0\\microsoft.aspnetcore.html.abstractions.2.2.0.nupkg.sha512",
@@ -124,7 +125,8 @@
     "C:\\Users\\deidr\\.nuget\\packages\\system.threading.timer\\4.3.0\\system.threading.timer.4.3.0.nupkg.sha512",
     "C:\\Users\\deidr\\.nuget\\packages\\system.windows.extensions\\5.0.0\\system.windows.extensions.5.0.0.nupkg.sha512",
     "C:\\Users\\deidr\\.nuget\\packages\\system.xml.readerwriter\\4.3.0\\system.xml.readerwriter.4.3.0.nupkg.sha512",
-    "C:\\Users\\deidr\\.nuget\\packages\\system.xml.xdocument\\4.3.0\\system.xml.xdocument.4.3.0.nupkg.sha512"
+    "C:\\Users\\deidr\\.nuget\\packages\\system.xml.xdocument\\4.3.0\\system.xml.xdocument.4.3.0.nupkg.sha512",
+    "C:\\Users\\deidr\\.nuget\\packages\\twitter.bootstrap\\2.0.3\\twitter.bootstrap.2.0.3.nupkg.sha512"
   ],
   "logs": []
 }
