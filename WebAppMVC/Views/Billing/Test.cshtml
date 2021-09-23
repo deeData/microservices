@@ -22,39 +22,40 @@
         <div class="col-md-12 fw-bold fs-3">Dashboard</div>
     </div>
     <div class="row">
-        <div class="container-fluid mt-xxl-1 col-md-6">
-            <div>
-                <h1>Enter the following test credit card info into widget</h1>
-                <h3>https://stripe.com/docs/testing</h3>
-            </div>
+        <div class="container mt-xxl-1 col-md-6" style="min-width: 30rem;">
+            <div class="card text-white bg-primary mb-3">
+                <div>
+                    <h1>Enter the following test credit card info into widget</h1>
+                    <h3>https://stripe.com/docs/testing</h3>
+                </div>
 
-            <!-- Stripe payment widget -->
-            <div class="container">
-                <form id="payment-form">
-                    <div id="card-element"><!--Stripe.js injects the Card Element--></div>
-                    <button id="submit">
-                        <div class="spinner hidden" id="spinner"></div>
-                        <span id="button-text">Pay now</span>
-                    </button>
-                    <p id="card-error" role="alert"></p>
-                    <p class="result-message hidden">
-                        Payment succeeded, see the result in your
-                        <a href="" target="_blank">Stripe dashboard.</a> Refresh the page to pay again.
-                    </p>
-                </form>
-            </div>
-        </div>
-
-        <div class="col-md-6">
-            <div class="card text-white bg-primary mb-3" style="max-width: 18rem;">
-                <div class="card-header">Header</div>
-                <div class="card-body">
-                    <h5 class="card-title">Primary card title</h5>
-                    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                <!-- Stripe payment widget -->
+                <div class="container">
+                    <form id="payment-form">
+                        <div id="card-element"><!--Stripe.js injects the Card Element--></div>
+                        <button id="submit">
+                            <div class="spinner hidden" id="spinner"></div>
+                            <span id="button-text">Pay now</span>
+                        </button>
+                        <p id="card-error" role="alert"></p>
+                        <p class="result-message hidden">
+                            Payment succeeded, see the result in your
+                            <a href="" target="_blank">Stripe dashboard.</a> Refresh the page to pay again.
+                        </p>
+                    </form>
                 </div>
             </div>
         </div>
-    </div>
+            <div class="container mt-xxl-1 col-md-6" style="min-width: 30rem;">
+                <div class="card text-white bg-primary mb-3">
+                    <div class="card-header">Header</div>
+                    <div class="card-body">
+                        <h5 class="card-title">Primary card title</h5>
+                        <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
 </div>
 
 <div class="container-fluid">
@@ -63,7 +64,7 @@
         <table id="dataTable" class="table table-responsive table-striped table-bordered table-hover" data-s>
             <thead>
                 <tr>
-                    <th data-field="Posted">Posted</th>
+                    <th data-field="Posted" data-formatter="dateTimeStamp">Posted</th>
                     <th data-field="Description">Billing Entry</th>
                     <th data-field="Debit" data-formatter="currencyFormat">Debit</th>
                     <th data-field="Credit" data-formatter="currencyFormat">Credit</th>
@@ -103,9 +104,6 @@
             return format(column);
         }
 
-        var s = `@Html.Raw(myModel)`;
-        var jsonData = JSON.parse(s);
-
         var runningTotal = 0;
         //goes through every preceding row
         var getBalance = function (column, row, index) {
@@ -114,6 +112,23 @@
             return format(runningTotal);
         }
 
+        var dateTimeStamp = function (dateInFirstColumn) {
+            var date = new Date(dateInFirstColumn);
+            var hours = date.getHours();
+            var minutes = date.getMinutes();
+            var ampm = hours >= 12 ? 'PM' : 'AM';
+            hours = hours % 12;
+            hours = hours ? hours : 12; // the hour '0' should be '12'
+            minutes = minutes < 10 ? '0' + minutes : minutes;
+            var strTime = hours + ':' + minutes + ' ' + ampm;
+            return (date.getMonth() + 1) + "/" + date.getDate() + "/" + date.getFullYear() + "  " + strTime;
+        }
+
+
+        //get model from backend to front end
+        var s = `@Html.Raw(myModel)`;
+        var jsonData = JSON.parse(s);
+
         $(document).ready(function () {
             var $table = $('#dataTable')
             $table.bootstrapTable({
@@ -121,11 +136,10 @@
             });
             $table.dataTable();
         });
+       
+        
 
     </script>
-
-
-
 
 
 

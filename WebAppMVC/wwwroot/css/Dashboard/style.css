@@ -10,6 +10,11 @@ button {
 #nav-fix {
     height: 60px;
 }
+#position-right {
+    position: absolute;
+    right: 10px;
+    top: 5px;
+}
 
 /*SIDEBAR*/
 :root {
