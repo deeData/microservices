@@ -17,38 +17,36 @@
 
 }
 
-<div class="container-fluid">
+<div class="container-fluid bg-light">
     <div class="row mt-3 mb-2">
-        <div class="col-md-12 fw-bold fs-3">Dashboard</div>
+        <div class="col-md-12 fw-bold fs-3">Billing Portal</div>
     </div>
     <div class="row">
         <div class="container mt-xxl-1 col-md-6" style="min-width: 30rem;">
-            <div class="card text-white bg-primary mb-3">
-                <div>
-                    <h1>Enter the following test credit card info into widget</h1>
-                    <h3>https://stripe.com/docs/testing</h3>
-                </div>
-
-                <!-- Stripe payment widget -->
+            <div class="card text-white bg-secondary mb-3">
                 <div class="container">
-                    <form id="payment-form">
-                        <div id="card-element"><!--Stripe.js injects the Card Element--></div>
-                        <button id="submit">
-                            <div class="spinner hidden" id="spinner"></div>
-                            <span id="button-text">Pay now</span>
-                        </button>
-                        <p id="card-error" role="alert"></p>
-                        <p class="result-message hidden">
-                            Payment succeeded, see the result in your
-                            <a href="" target="_blank">Stripe dashboard.</a> Refresh the page to pay again.
-                        </p>
-                    </form>
-                </div>
-            </div>
-        </div>
-            <div class="container mt-xxl-1 col-md-6" style="min-width: 30rem;">
-                <div class="card text-white bg-primary mb-3">
-                    <div class="card-header">Header</div>
+                    <div class="card-header mt-1">
+                        <h5>Enter test credit card data for processing and response. See options.</h5>
+                        <h10>Please refresh "Pay now" widget after every transaction.</h10>
+                        @*add refresh function*@
+                        <i class="bi bi-arrow-counterclockwise"></i>
+                    </div>
+                    <div class="card-body">
+                        <!-- Stripe payment widget -->
+                        <form id="payment-form" class="container">
+                            <div id="card-element"><!--Stripe.js injects the Card Element--></div>
+                            <button id="submit">
+                                <div class="spinner hidden" id="spinner"></div>
+                                <span id="button-text">Pay now</span>
+                            </button>
+                            <p id="card-error" role="alert"></p>
+                            <p class="result-message hidden">
+                                Payment succeeded, see the result in your
+                                <a href="" target="_blank">Stripe dashboard.</a> Refresh the page to pay again.
+                            </p>
+                        </form>
+                    </div>
+                    <div class="card-header">Stripe Response</div>
                     <div class="card-body">
                         <h5 class="card-title">Primary card title</h5>
                         <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
@@ -56,40 +54,98 @@
                 </div>
             </div>
         </div>
-</div>
+        <div class="container mt-xxl-1 col-md-6" style="min-width: 30rem;">
+            <div class="card text-white bg-secondary mb-3">
+                <div class="card-header mt-1">Testing Options</div>
+                <div class="card-body">
+                    <h5 class="card-title">Stripe Integration Testing</h5>
+                    <p class="card-text">
+                        Genuine card information cannot be used in test mode. Instead, use any of the following test card numbers,
+                        a valid expiration date in the future, and any random CVC number, to create a successful payment. Each basic test card’s billing country is set to U.S.
+                    </p>
+                    <div class="row mb-1">
+                        <div class="col-6 rounded-end">Card Number</div>
+                        <div class="col-6 rounded-end">Description</div>
+                    </div>
+                    <div id="el">
+                        <div class="row mb-1">
+                            <div class="col-6 rounded-end">
+                                <div>
+                                    <input type="text" value="4242 4242 4242 4242" class="myInput" readonly />
+                                    <i class="bi bi-clipboard" style="position: absolute; padding-left: 7px"></i>
+                                </div>
+                            </div>
+                            <div class="col-6 rounded-end">
+                                <p class="m-1">Visa credit card for successful payment.</p>
+                            </div>
+                        </div>
+                        <div class="row mb-1">
+                            <div class="col-6 rounded-end">
+                                <div>
+                                    <input type="text" value="4000 0000 0000 0002" class="myInput" readonly />
+                                    <i class="bi bi-clipboard" style="position: absolute; padding-left: 7px"></i>
+                                </div>
+                            </div>
+                            <div class="col-6 rounded-end">
+                                <p class="m-1">Charge is declined with a card_declined code.</p>
+                            </div>
+                        </div>
+                        <div class="row mb-1">
+                            <div class="col-6 rounded-end">
+                                <div>
+                                    <input type="text" value="4000 0000 0000 3220" class="myInput" readonly />
+                                    <i class="bi bi-clipboard" style="position: absolute; padding-left: 7px"></i>
+                                </div>
+                            </div>
+                            <div class="col-6 rounded-end">
+                                <p class="m-1">
+                                    3D Secure 2 authentication must be completed for the payment to be successful.
+                                    By default, your Radar rules will request 3D Secure authentication for this card.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row mt-3">
+                        <h10 style="font-style:italic">reference: <a href="https://stripe.com/docs/testing" target="_blank">https://stripe.com/docs/testing</a></h10>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 
-<div class="container-fluid">
-    <div class="row mt-3 mb-2">
-        @*ledger datable*@
-        <table id="dataTable" class="table table-responsive table-striped table-bordered table-hover" data-s>
-            <thead>
-                <tr>
-                    <th data-field="Posted" data-formatter="dateTimeStamp">Posted</th>
-                    <th data-field="Description">Billing Entry</th>
-                    <th data-field="Debit" data-formatter="currencyFormat">Debit</th>
-                    <th data-field="Credit" data-formatter="currencyFormat">Credit</th>
-                    <th data-formatter="getBalance">Adjusted Balance</th>
-                    <th data-field="Remarks">Remarks</th>
-                </tr>
-            </thead>
-        </table>
+    <div class="container-fluid">
+        <div class="row mt-3 mb-2">
+            @*ledger datable*@
+            <table id="dataTable" class="table table-responsive table-striped table-bordered table-hover" data-s>
+                <thead>
+                    <tr>
+                        <th data-field="Posted" data-formatter="dateTimeStamp">Posted</th>
+                        <th data-field="Description">Billing Entry</th>
+                        <th data-field="Debit" data-formatter="currencyFormat">Debit</th>
+                        <th data-field="Credit" data-formatter="currencyFormat">Credit</th>
+                        <th data-formatter="getBalance">Adjusted Balance</th>
+                        <th data-field="Remarks">Remarks</th>
+                    </tr>
+                </thead>
+            </table>
+        </div>
     </div>
 </div>
 
 
-@section Scripts{
+    @section Scripts{
 
-    <script src="~/lib/jquery/dist/jquery.min.js"></script>
-    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
-    <!-- Bootstrap core JS-->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="https://cdn.startbootstrap.com/sb-forms-latest.js"></script>
+        <script src="~/lib/jquery/dist/jquery.min.js"></script>
+        <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+        <!-- Bootstrap core JS-->
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/js/bootstrap.bundle.min.js"></script>
+        <script src="https://cdn.startbootstrap.com/sb-forms-latest.js"></script>
 
-    @*data table*@
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
-    <script src="https://unpkg.com/bootstrap-table@1.18.3/dist/bootstrap-table.min.js"></script>
-    <script src="https://cdn.datatables.net/1.10.2/js/jquery.dataTables.min.js"></script>
-    <script>
+        @*data table*@
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
+        <script src="https://unpkg.com/bootstrap-table@1.18.3/dist/bootstrap-table.min.js"></script>
+        <script src="https://cdn.datatables.net/1.10.2/js/jquery.dataTables.min.js"></script>
+        <script>
 
         var currencyFormatter = new Intl.NumberFormat('en-US', {
             style: 'currency',
@@ -136,22 +192,33 @@
             });
             $table.dataTable();
         });
-       
-        
-
-    </script>
 
 
 
+        </script>
 
-    @*stripe payment widget*@
-    <script type="text/javascript">
-        var purchase = {
-            items: [{ id: "xl-tshirt", amount: 2 }]
-        };
-    </script>
-    <script src="https://js.stripe.com/v3/"></script>
-    <script src="https://polyfill.io/v3/polyfill.min.js?version=3.52.1&features=fetch"></script>
-    <script src="~/js/stripeClient.js" asp-append-version="true" defer></script>
 
-}
+
+
+        @*stripe payment widget*@
+        <script type="text/javascript">
+            var purchase = {
+                items: [{ id: "xl-tshirt", amount: 2 }]
+            };
+        </script>
+        <script src="https://js.stripe.com/v3/"></script>
+        <script src="https://polyfill.io/v3/polyfill.min.js?version=3.52.1&features=fetch"></script>
+        <script src="~/js/stripeClient.js" asp-append-version="true" defer></script>
+
+        @*copy to clipboard*@
+        <script>
+            $(".bi-clipboard").click(function () {
+                var text = $(this).prev("input").val();
+                navigator.clipboard.writeText(text);
+
+                alert("Copied text: " + text);
+            });
+        </script>
+
+
+    }
