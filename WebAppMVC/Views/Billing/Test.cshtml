@@ -2,4 +2,69 @@
     Layout = "~/Views/Shared/_LayoutBilling.cshtml";
 }
 
-<h2>HI</h2>
+@section Styles{
+    @*stripe payment widget*@
+    <link href="~/css/stripe.css" rel="stylesheet" />
+}
+
+<div class="container-fluid">
+    <div class="row mt-3 mb-2">
+        <div class="col-md-12 fw-bold fs-3">Dashboard</div>
+    </div>
+    <div class="row">
+        <div class="container-fluid mt-xxl-1 col-md-6">
+            <div>
+                <h1>Enter the following test credit card info into widget</h1>
+                <h3>https://stripe.com/docs/testing</h3>
+            </div>
+
+            <!-- Stripe payment widget -->
+            <div class="container">
+                <form id="payment-form">
+                    <div id="card-element"><!--Stripe.js injects the Card Element--></div>
+                    <button id="submit">
+                        <div class="spinner hidden" id="spinner"></div>
+                        <span id="button-text">Pay now</span>
+                    </button>
+                    <p id="card-error" role="alert"></p>
+                    <p class="result-message hidden">
+                        Payment succeeded, see the result in your
+                        <a href="" target="_blank">Stripe dashboard.</a> Refresh the page to pay again.
+                    </p>
+                </form>
+            </div>
+        </div>
+
+        <div class="col-md-6">
+            <div class="card text-white bg-primary mb-3" style="max-width: 18rem;">
+                <div class="card-header">Header</div>
+                <div class="card-body">
+                    <h5 class="card-title">Primary card title</h5>
+                    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="container-fluid">
+    <div class="row mt-3 mb-2">
+
+        YES
+    </div>
+</div>
+
+
+@section Scripts{
+
+    @*stripe payment widget*@
+    <script type="text/javascript">
+        var purchase = {
+            items: [{ id: "xl-tshirt", amount: 2 }]
+        };
+    </script>
+    <script src="https://js.stripe.com/v3/"></script>
+    <script src="https://polyfill.io/v3/polyfill.min.js?version=3.52.1&features=fetch"></script>
+    <script src="~/js/stripeClient.js" asp-append-version="true" defer></script>
+
+}

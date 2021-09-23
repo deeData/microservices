@@ -4,11 +4,17 @@ button {
   font-family: "Inter", sans-serif;
 }
 
+#link-text:hover {
+    color: white !important;
+}
+#nav-fix {
+    height: 60px;
+}
 
 /*SIDEBAR*/
 :root {
-  --offcanvas-width: 270px;
-  --topNavbarHeight: 56px;
+    --offcanvas-width: 270px;
+    --topNavbarHeight: 56px;
 }
 .sidebar-nav {
   width: var(--offcanvas-width);

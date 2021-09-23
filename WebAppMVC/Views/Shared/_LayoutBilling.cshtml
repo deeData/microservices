@@ -11,28 +11,31 @@
     <link rel="stylesheet" href="~/css/Dashboard/style.css" />
     @await RenderSectionAsync("Styles", required: false)
 
+
 </head>
 
 <body>
     @*navbar*@
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top" id="nav-fix">
         <div class="container-fluid">
-            @*<a class="btn btn-primary" data-bs-toggle="offcanvas" href="#offcanvasExample" role="button" aria-controls="offcanvasExample">
-                    Link with href
-                </a>*@
             @*Offcanvas sidebar trigger*@
             <button class="navbar-toggler me-2" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasExample" aria-controls="offcanvasExample">
                 <span class="navbar-toggler-icon" data-bs-target="#offcanvasExample"></span>
             </button>
 
-            <a class="navbar-brand fw-bold me-auto" href="#">Billing Account</a>
+            <a class="navbar-brand fw-bold me-auto" href="#">Traffic MVC</a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav mb-2 mb-lg-0 p-3">
+                    <li class="nav-item">
+                        <a class="nav-link active text-secondary" aria-current="page" href="#" id="link-text">Traffic ML (Python)</a>
+                    </li>
+                </ul>
                 <ul class="navbar-nav mb-2 mb-lg-0">
                     <li class="nav-item">
-                        <a class="nav-link active" aria-current="page" href="#">Home</a>
+                        <a class="nav-link active text-secondary" aria-current="page" href="#" id="link-text">TimeInDinero (Node.js)</a>
                     </li>
                 </ul>
                 <form class="d-flex ms-auto">
@@ -62,18 +65,20 @@
             <nav class="navbar-dark">
                 <ul class="navbar-nav">
                     <li>
-                        <div class="text-muted small fw-bold text-uppercase px-3 pt-3">CORE</div>
+                        <div class="text-muted small fw-bold text-uppercase px-3 pt-3">TEST MODE</div>
                     </li>
                     <li>
-                        <a href="#" class="nav-link px-3 active me-2"></a>
-                        <span class="me-2"><i class="bi bi-speedometer2 px-3"></i></span>
-                        <span>Dashboard</span>
+                        <div class="p-3">
+                            <a href="#" class="nav-link px-3 active me-2"></a>
+                            <span class="me-2"><i class="bi bi-calendar2-plus"></i></span>
+                            <span>Billing Account</span>
+                        </div>
                     </li>
                     <li class="my-4">
                         <hr class="dropdown-divider" />
                     </li>
                     <li>
-                        <div class="text-muted small fw-bold text-uppercase px-3 pt-3">TEST ORDER</div>
+                        <div class="text-muted small fw-bold text-uppercase px-3 pt-3">Administrator</div>
                     </li>
                     @*Prescribed charge order*@
                     <li class="row p-4">
@@ -106,39 +111,7 @@
 
     @*main*@
     <main class="mt-5 pt-3">
-        <div class="container-fluid">
-            <div class="row mt-3 mb-2">
-                <div class="col-md-12 fw-bold fs-3">Dashboard</div>
-            </div>
-            <div class="row">
-                <div class="col-md-6">
-                    <div class="card text-white bg-primary mb-3" style="max-width: 18rem;">
-                        <div class="card-header">Header</div>
-                        <div class="card-body">
-                            <h5 class="card-title">Primary card title</h5>
-                            <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="col-md-6">
-                    <div class="card text-white bg-primary mb-3" style="max-width: 18rem;">
-                        <div class="card-header">Header</div>
-                        <div class="card-body">
-                            <h5 class="card-title">Primary card title</h5>
-                            <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                        </div>
-                    </div>
-                </div>
-
-            </div>
-        </div>
-
-
-
-        <div class="container-fluid">
-            @RenderBody()
-        </div>
+        @RenderBody()
 
     </main>
 
@@ -161,7 +134,6 @@
             };
 
         });
-
     </script>
 
 

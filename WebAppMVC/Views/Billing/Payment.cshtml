@@ -27,23 +27,7 @@
     </form>
 </div>
 
-<div class="row p-4">
-    <div class="col-3">
-        <div class="dropdown">
-            <button class="btn btn-success dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                Select Charge Amount$
-            </button>
-            <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton" id="amounts">
-                <li class="dropdown-item" href="#">$0.01</li>
-                <li class="dropdown-item" href="#">$0.02</li>
-                <li class="dropdown-item" href="#">$0.03</li>
-            </ul>
-        </div>
-    </div>
-    <div class="col-2">
-        <input type="text" id="amt" readonly />
-    </div>
-</div>
+
 
 @*<partial
     name="_OrderEntryPartial"/>*@
@@ -53,18 +37,6 @@
 @section Scripts{
 
     <script type="text/javascript">
-        var amount1 = 0;
-        $('#amounts li').on('click', function () {
-            $('#amt').val($(this).text());
-            amount1 = $('#amt').val();
-            console.log(amount1);
-
-            var purchase = {
-                items: [{ id: "xl-tshirt", amount: amount1 }]
-            };
-
-        });
-
 
 
         var purchase = {
@@ -78,5 +50,6 @@
     <script src="~/js/stripeClient.js" asp-append-version="true" defer></script>
 
 }
+
 
 
