@@ -1,10 +1,20 @@
-﻿@{
+﻿@model List<LedgerItemDto>
+@using System.Text.Json;
+@{
     Layout = "~/Views/Shared/_LayoutBilling.cshtml";
+    var myModel = JsonSerializer.Serialize(Model);
 }
+
 
 @section Styles{
     @*stripe payment widget*@
     <link href="~/css/stripe.css" rel="stylesheet" />
+
+    @*ledger datatable*@
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.css" />
+    <link rel="stylesheet" href="https://unpkg.com/bootstrap-table@1.18.3/dist/bootstrap-table.min.css" />
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.10.2/css/jquery.dataTables.min.css" />
+
 }
 
 <div class="container-fluid">
@@ -49,13 +59,76 @@
 
 <div class="container-fluid">
     <div class="row mt-3 mb-2">
-
-        YES
+        @*ledger datable*@
+        <table id="dataTable" class="table table-responsive table-striped table-bordered table-hover" data-s>
+            <thead>
+                <tr>
+                    <th data-field="Posted">Posted</th>
+                    <th data-field="Description">Billing Entry</th>
+                    <th data-field="Debit" data-formatter="currencyFormat">Debit</th>
+                    <th data-field="Credit" data-formatter="currencyFormat">Credit</th>
+                    <th data-formatter="getBalance">Adjusted Balance</th>
+                    <th data-field="Remarks">Remarks</th>
+                </tr>
+            </thead>
+        </table>
     </div>
 </div>
 
 
 @section Scripts{
+
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- Bootstrap core JS-->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdn.startbootstrap.com/sb-forms-latest.js"></script>
+
+    @*data table*@
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
+    <script src="https://unpkg.com/bootstrap-table@1.18.3/dist/bootstrap-table.min.js"></script>
+    <script src="https://cdn.datatables.net/1.10.2/js/jquery.dataTables.min.js"></script>
+    <script>
+
+        var currencyFormatter = new Intl.NumberFormat('en-US', {
+            style: 'currency',
+            currency: 'USD',
+        });
+
+        var format = function (data) {
+            return currencyFormatter.format(data);
+        }
+
+        var currencyFormat = function (column, row, index) {
+            return format(column);
+        }
+
+        var s = `@Html.Raw(myModel)`;
+        var jsonData = JSON.parse(s);
+
+        var runningTotal = 0;
+        //goes through every preceding row
+        var getBalance = function (column, row, index) {
+            runningTotal += row.Debit;
+            runningTotal += row.Credit;
+            return format(runningTotal);
+        }
+
+        $(document).ready(function () {
+            var $table = $('#dataTable')
+            $table.bootstrapTable({
+                data: jsonData
+            });
+            $table.dataTable();
+        });
+
+    </script>
+
+
+
+
+
+
 
     @*stripe payment widget*@
     <script type="text/javascript">
