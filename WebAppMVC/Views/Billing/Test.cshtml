@@ -51,26 +51,27 @@
                     </div>
                     <div class="card-body">
                         <div class="row">
-                            <div class="col-4">
-                                <h8 class="">Enter and Submit Payment Amount.</h8>
+                            <div class="col-4" id="submittedMessage">
+                                <h8>Enter and Submit Payment Amount.</h8>
                             </div>
                             <div class="col-3">
                                 <input class="form-control" type="text" id="payAmount" />
                             </div>
                             <div class="col-3">
-                                <button class="btn btn-primary">Submit</button>
+                                <button class="btn btn-primary" id="submitAmt">Submit</button>
                             </div>
                         </div>
                     </div>
                     <span class="card-header text-danger font-weight-bold">System Message</span><small><span id="stripeResponseTime"></span></small>
                     <div class="card-body">
-                        <span class="card-text bg-warning text-danger font-weight-bold" id="stripeResponse">ERROR: Please restart payment processing.</span>
+                        <span class="card-text bg-danger text-light font-weight-bold" id="stripeResponse"></span>
                     </div>
 
-                    <div class="card-header mt-1">
-                        <h6 class="text-danger font-weight-bolder">Enter test credit card info for payment processing. See "Testing Options".</h6>
-                    </div>
-                    <div class="card-body">
+                    @*HIDE UNDER USER SUBMITS PAYMENT AMOUNT*@
+                    <div class="card-body" style="display: none" id="stripeWidget">
+                        <div class="card-header mt-1">
+                            <h6 class="text-primary font-weight-bolder bg-light">Please enter test credit card info for payment processing. See "Testing Options".</h6>
+                        </div>
                         <!-- Stripe payment widget -->
                         <form id="payment-form" class="container">
                             <div id="card-element"><!--Stripe.js injects the Card Element--></div>
@@ -85,6 +86,7 @@
                             </p>
                         </form>
                     </div>
+
                 </div>
             </div>
         </div>
@@ -157,7 +159,7 @@
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <!--popover library using BS-->
-    <script src="~/js/site.js"></script>  
+    <script src="~/js/site.js"></script>
     <!--notification library using BS-->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/notify/0.4.2/notify.min.js"></script>
     <!-- Bootstrap core JS-->
@@ -185,6 +187,7 @@
             return format(column);
         }
 
+        //for ledger datatable
         var runningTotal = 0;
         //goes through every preceding row
         var getBalance = function (column, row, index) {
@@ -192,20 +195,6 @@
             runningTotal += row.Credit;
             return format(runningTotal);
         }
-
-        var dateTimeStamp = function (dateInFirstColumn) {
-            var date = new Date(dateInFirstColumn);
-            var hours = date.getHours();
-            var minutes = date.getMinutes();
-            var seconds = date.getSeconds();
-            var ampm = hours >= 12 ? 'PM' : 'AM';
-            hours = hours % 12;
-            hours = hours ? hours : 12; // the hour '0' should be '12'
-            minutes = minutes < 10 ? '0' + minutes : minutes;
-            var strTime = hours + ':' + minutes + ':' + seconds + " " + ampm;
-            return (date.getMonth() + 1) + "/" + date.getDate() + "/" + date.getFullYear() + "  " + strTime;
-        }
-
 
         //get model from backend to front end
         var s = `@Html.Raw(myModel)`;
@@ -220,24 +209,31 @@
         });
     </script>
 
-    @*stripe payment widget*@
+
+    @*payment widget*@
     <script type="text/javascript">
-        var purchase = {
-            items: [{ id: "xl-tshirt", amount: 2 }]
-        };
+
+        //model required by Stripe 
+        //var purchase = {
+        //    items: [{ id: "xl-tshirt", amount: 2 }]
+        //};
+        var purchase1 = { items: [] };
+
+        $("#submitAmt").click(function (){
+            var amount = $('#payAmount').val();
+            purchase1.items.push({ id: "xl-tshirt", amount: amount });
+            console.log(purchase1);
+            $('#payAmount').prop('disabled', true);
+            $("#submittedMessage").html("Amount Submitted:");
+            $("#submitAmt").hide();
+            callStripe(amount);
+            $("#stripeWidget").fadeIn();
+        });
     </script>
     <script src="https://polyfill.io/v3/polyfill.min.js?version=3.52.1&features=fetch"></script>
     <script src="~/js/stripeClient.js" asp-append-version="true" defer></script>
 
 
-    <script>
-        $(".bi-clipboard").click(function () {
-            var text = $(this).prev("input").val();
-            navigator.clipboard.writeText(text); // copy to clipboard
-            $(this).notify("Copied", "info");
-        });
-
-    </script>
 
 
 

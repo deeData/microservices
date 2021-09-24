@@ -70,7 +70,8 @@ namespace PaymentApi.Controllers
             // Replace this constant with a calculation of the order's amount
             // Calculate the order total on the server to prevent
             // people from directly manipulating the amount on the client
-            int cents = Convert.ToInt32(items[0].Amount) * 100;
+            //LINQ iterating through IEnumerable of items
+            int cents = (int)(items.Sum(item => item.Amount * 100));
             return cents;
         }
     }
