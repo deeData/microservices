@@ -123,14 +123,13 @@ var loading = function (isLoading) {
 //------------------------my edits-addons-----------------------------
 var setUpmessage = function (clientToken) {
     if (clientToken) {
-        $("#stripeResponse").html("$" + purchase.items[0].amount + " payment ready to be processed with Stripe client secret token.");
+        $("#stripeResponse").text("$" + purchase.items[0].amount + " payment ready to be processed with Stripe client token.   ");
+        $("#stripeResponseTime").text(dateTimeStamp(new Date()));
     }
-
 };
 
-//var paymentMessage = function () {
-//    var message = "$" + purchase.items[0].amount + " payment has been posted to the billing ledger.";
-//    $("#stripeResponse").replaceWith(
-//        <p class="card-text bg-light text-danger" id="stripeResponse">
-//            + message + </p >);
-//};
+var paymentMessage = function () {
+    var message = "Payment of $" + purchase.items[0].amount + " has been posted to the billing ledger.   ";
+    $("#stripeResponse").text(message);
+    $("#stripeResponseTime").text(dateTimeStamp(new Date()));
+};

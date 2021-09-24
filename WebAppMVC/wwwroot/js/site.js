@@ -7,3 +7,7 @@ $(function (){
     $('data-toggle="tooltip"').tooltip();
 });
 
+//popover bootstrap
+$('.popover-hover').popover({
+    trigger: 'hover'
+})

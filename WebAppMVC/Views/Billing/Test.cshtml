@@ -46,6 +46,8 @@
                 <div class="container">
                     <div class="card-header mt-1">
                         Payment Processing
+                        @*add refresh function*@
+                        <i class="bi bi-arrow-counterclockwise float-end popover-hover" data-content="Refresh for every new payment transaction."></i>
                     </div>
                     <div class="card-body">
                         <div class="row">
@@ -60,16 +62,13 @@
                             </div>
                         </div>
                     </div>
-                    <span class="card-header text-danger font-weight-bold">System Response</span>
+                    <span class="card-header text-danger font-weight-bold">System Message</span><small><span id="stripeResponseTime"></span></small>
                     <div class="card-body">
-                        <p class="card-text bg-light text-danger" id="stripeResponse">ERROR: Please restart payment processing.</p>
+                        <span class="card-text bg-warning text-danger font-weight-bold" id="stripeResponse">ERROR: Please restart payment processing.</span>
                     </div>
 
                     <div class="card-header mt-1">
                         <h6 class="text-danger font-weight-bolder">Enter test credit card info for payment processing. See "Testing Options".</h6>
-                        <!--<h10>Please refresh "Pay now" widget after every transaction.</h10>-->
-                        @*add refresh function*@
-                        <!--<i class="bi bi-arrow-counterclockwise"></i>-->
                     </div>
                     <div class="card-body">
                         <!-- Stripe payment widget -->
@@ -87,7 +86,7 @@
                         </form>
                     </div>
                 </div>
-                </div>
+            </div>
         </div>
         <div class="container mt-xxl-1 col-md-6" style="min-width: 30rem;">
             <div class="card text-white bg-secondary mb-3">
@@ -157,6 +156,8 @@
 
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <!--popover library using BS-->
+    <script src="~/js/site.js"></script>  
     <!--notification library using BS-->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/notify/0.4.2/notify.min.js"></script>
     <!-- Bootstrap core JS-->
@@ -237,6 +238,10 @@
         });
 
     </script>
+
+
+
+
 
 
 }
