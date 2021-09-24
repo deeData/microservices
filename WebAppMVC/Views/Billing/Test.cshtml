@@ -5,11 +5,9 @@
     var myModel = JsonSerializer.Serialize(Model);
 }
 
-
 @section Styles{
     @*stripe payment widget*@
     <link href="~/css/stripe.css" rel="stylesheet" />
-
     @*ledger datatable*@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.css" />
     <link rel="stylesheet" href="https://unpkg.com/bootstrap-table@1.18.3/dist/bootstrap-table.min.css" />
@@ -18,18 +16,60 @@
 }
 
 <div class="container-fluid bg-light">
+
+
     <div class="row mt-3 mb-2">
-        <div class="col-md-12 fw-bold fs-3">Billing Portal</div>
+        <div class="col-md-3 fw-bold fs-4">Billing Ledger</div>
     </div>
+    <div class="container-fluid">
+        <div class="row mt-3 mb-2">
+            @*ledger datable*@
+            <table id="dataTable" class="table table-responsive table-striped table-bordered table-hover" data-s>
+                <thead>
+                    <tr>
+                        <th data-field="Posted" data-formatter="dateTimeStamp">Posted</th>
+                        <th data-field="Description">Billing Entry</th>
+                        <th data-field="Debit" data-formatter="currencyFormat">Debit</th>
+                        <th data-field="Credit" data-formatter="currencyFormat">Credit</th>
+                        <th data-formatter="getBalance">Adjusted Balance</th>
+                        <th data-field="Remarks">Remarks</th>
+                    </tr>
+                </thead>
+            </table>
+        </div>
+    </div>
+
+
     <div class="row">
         <div class="container mt-xxl-1 col-md-6" style="min-width: 30rem;">
             <div class="card text-white bg-secondary mb-3">
                 <div class="container">
                     <div class="card-header mt-1">
-                        <h5>Enter test credit card data for processing and response. See options.</h5>
-                        <h10>Please refresh "Pay now" widget after every transaction.</h10>
+                        Payment Processing
+                    </div>
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-4">
+                                <h8 class="">Enter and Submit Payment Amount.</h8>
+                            </div>
+                            <div class="col-3">
+                                <input class="form-control" type="text" id="payAmount" />
+                            </div>
+                            <div class="col-3">
+                                <button class="btn btn-primary">Submit</button>
+                            </div>
+                        </div>
+                    </div>
+                    <span class="card-header text-danger font-weight-bold">System Response</span>
+                    <div class="card-body">
+                        <p class="card-text bg-light text-danger" id="stripeResponse">ERROR: Please restart payment processing.</p>
+                    </div>
+
+                    <div class="card-header mt-1">
+                        <h6 class="text-danger font-weight-bolder">Enter test credit card info for payment processing. See "Testing Options".</h6>
+                        <!--<h10>Please refresh "Pay now" widget after every transaction.</h10>-->
                         @*add refresh function*@
-                        <i class="bi bi-arrow-counterclockwise"></i>
+                        <!--<i class="bi bi-arrow-counterclockwise"></i>-->
                     </div>
                     <div class="card-body">
                         <!-- Stripe payment widget -->
@@ -46,13 +86,8 @@
                             </p>
                         </form>
                     </div>
-                    <span class="card-header" id="stripeResponse">Stripe Response</span>
-                    <div class="card-body">
-                        <h5 class="card-title">Primary card title</h5>
-                        <p class="card-text" id="stripeResponse"></p>
-                    </div>
                 </div>
-            </div>
+                </div>
         </div>
         <div class="container mt-xxl-1 col-md-6" style="min-width: 30rem;">
             <div class="card text-white bg-secondary mb-3">
@@ -113,24 +148,9 @@
         </div>
     </div>
 
-    <div class="container-fluid">
-        <div class="row mt-3 mb-2">
-            @*ledger datable*@
-            <table id="dataTable" class="table table-responsive table-striped table-bordered table-hover" data-s>
-                <thead>
-                    <tr>
-                        <th data-field="Posted" data-formatter="dateTimeStamp">Posted</th>
-                        <th data-field="Description">Billing Entry</th>
-                        <th data-field="Debit" data-formatter="currencyFormat">Debit</th>
-                        <th data-field="Credit" data-formatter="currencyFormat">Credit</th>
-                        <th data-formatter="getBalance">Adjusted Balance</th>
-                        <th data-field="Remarks">Remarks</th>
-                    </tr>
-                </thead>
-            </table>
-        </div>
-    </div>
+
 </div>
+
 
 
 @section Scripts{
@@ -176,11 +196,12 @@
             var date = new Date(dateInFirstColumn);
             var hours = date.getHours();
             var minutes = date.getMinutes();
+            var seconds = date.getSeconds();
             var ampm = hours >= 12 ? 'PM' : 'AM';
             hours = hours % 12;
             hours = hours ? hours : 12; // the hour '0' should be '12'
             minutes = minutes < 10 ? '0' + minutes : minutes;
-            var strTime = hours + ':' + minutes + ' ' + ampm;
+            var strTime = hours + ':' + minutes + ':' + seconds + " " + ampm;
             return (date.getMonth() + 1) + "/" + date.getDate() + "/" + date.getFullYear() + "  " + strTime;
         }
 

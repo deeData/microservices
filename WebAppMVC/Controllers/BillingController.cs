@@ -14,6 +14,10 @@ namespace WebAppMVC.Controllers
                 new LedgerItemDto{ Posted =  new DateTime(2021, 9, 10), Description = "Charge", Debit = -45.99, Remarks = ""},
                 new LedgerItemDto{ Posted = new DateTime(2021, 9, 15), Description = "Payment", Credit = 5.00, Remarks = "Order#123"},
                 new LedgerItemDto{ Posted = DateTime.Now, Description = "Charge", Debit = -1.99, Remarks = "Card# 123"},
+                new LedgerItemDto{ Posted =  new DateTime(2021, 9, 10), Description = "Charge", Debit = -45.99, Remarks = ""},
+                new LedgerItemDto{ Posted = new DateTime(2021, 9, 15), Description = "Payment", Credit = 5.00, Remarks = "Order#123"},
+                new LedgerItemDto{ Posted = DateTime.Now, Description = "Charge", Debit = -1.99, Remarks = "Card# 123"},
+
             };
 
         [HttpGet]

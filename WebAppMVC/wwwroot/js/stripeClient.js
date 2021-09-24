@@ -3,7 +3,7 @@ var stripe = Stripe("pk_test_iJIKag44gtZYLPOvNj6bLCJH");
 
 // The items the customer wants to buy
 var purchase = {
-    items: [{ id: "xl-tshirt", amount: 2.00 }]
+    items: [{ id: "xl-tshirt", amount: 2.50 }]
 };
 
 // Disable the button until we have Stripe set up on the page
@@ -54,6 +54,9 @@ fetch("https://localhost:44372/api/payment/secret", {
             // Complete payment when the submit button is clicked
             payWithCard(stripe, card, data.clientSecret);
         });
+
+        setUpmessage(data.clientSecret);
+  
     });
 
 // Calls stripe.confirmCardPayment
@@ -92,6 +95,7 @@ var orderComplete = function (paymentIntentId) {
         );
     $(".result-message").removeClass("hidden");
     $("button").disabled = true;
+    paymentMessage();
 };
 
 // Show the customer the error from Stripe if their card fails to charge
@@ -113,3 +117,20 @@ var loading = function (isLoading) {
         $("#button-text").removeClass("hidden");
     }
 };
+
+
+
+//------------------------my edits-addons-----------------------------
+var setUpmessage = function (clientToken) {
+    if (clientToken) {
+        $("#stripeResponse").html("$" + purchase.items[0].amount + " payment ready to be processed with Stripe client secret token.");
+    }
+
+};
+
+//var paymentMessage = function () {
+//    var message = "$" + purchase.items[0].amount + " payment has been posted to the billing ledger.";
+//    $("#stripeResponse").replaceWith(
+//        <p class="card-text bg-light text-danger" id="stripeResponse">
+//            + message + </p >);
+//};
