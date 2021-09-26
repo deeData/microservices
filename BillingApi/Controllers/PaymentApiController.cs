@@ -1,10 +1,12 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using BillingApi.Model.Dtos;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Newtonsoft.Json;
 using Stripe;
 using Stripe.Checkout;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
@@ -14,6 +16,20 @@ namespace PaymentApi.Controllers
     [Route("api/payment")]
     public class PaymentApiController : Controller
     {
+
+        [HttpPost("charge")]
+        //fromBody means not from url but from the html
+        public IActionResult Charge([FromBody]LedgerItemDto ledgerItem)
+        {
+            //get ledger item and post to backend
+            //send back all ledger items or only the new one for update
+            if (ledgerItem == null)
+            {
+                return NotFound();
+            }
+
+            return Ok(ledgerItem);
+        }
 
         //webhook connection with Stripe - to get response from Stripe after web client sends payment data with a client secret to proccess a payment
         [HttpPost("webhook")]

@@ -25,19 +25,22 @@
                 <span class="navbar-toggler-icon" data-bs-target="#offcanvasExample"></span>
             </button>
 
-            <a class="navbar-brand fw-bold me-auto" href="#">Traffic MVC</a>
+            <a class="navbar-brand fw-bold me-auto" href="#">Traffic MVC<i class="bi bi-person-fill"></i></a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav mb-2 mb-lg-0 p-3">
                     <li class="nav-item">
-                        <a class="nav-link active text-secondary" aria-current="page" href="#" id="link-text">Traffic ML (Python)</a>
+                        <a class="nav-link text-light" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active text-secondary" aria-current="page"  href="https://medium.com/@@deidra108?p=cbf3fd1bad00" target="_blank" id="link-text">Traffic ML (Python)</a>
                     </li>
                 </ul>
                 <ul class="navbar-nav mb-2 mb-lg-0">
                     <li class="nav-item">
-                        <a class="nav-link active text-secondary" aria-current="page" href="#" id="link-text">TimeInDinero (Node.js)</a>
+                        <a class="nav-link active text-secondary" aria-current="page" href="https://github.com/deeData/TimenDinero-Heroku" target="_blank" id="link-text">TimeInDinero (Node.js)</a>
                     </li>
                 </ul>
                 @*--OPEN ITEM------------------DISPLAY BASED ON SECURITY---------------------------------*@
@@ -82,24 +85,29 @@
                                     Select Charge Amount$
                                 </button>
                                 <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton" id="amounts">
-                                    <li class="dropdown-item border" href="#"><h6>Defective Vehicle: </h6>$50.00</li>
-                                    <li class="dropdown-item border" href="#"><h6>Speeding: </h6>$80.00</li>
-                                    <li class="dropdown-item border" href="#"><h6>Reckless Driving: </h6>$100.00</li>
-                                    <li class="dropdown-item border" href="#"><h6>DUI:  </h6>$500.00</li>
+                                    @*<li class="dropdown-item border" href="#"><h6>Defective Vehicle: </h6><input hidden class="charge" value="50.99" />$50.99</li>
+                                        <li class="dropdown-item border" href="#"><h6>Speeding: </h6>$80.00</li>
+                                        <li class="dropdown-item border" href="#"><h6>Reckless Driving: </h6>$100.00</li>
+                                        <li class="dropdown-item border" href="#"><h6>DUI:  </h6>$500.00</li>*@
+                                    <li class="dropdown-item border" href="#">50.99</li>
+                                    <li class="dropdown-item border" href="#">80.00</li>
+                                    <li class="dropdown-item border" href="#">100.00</li>
+                                    <li class="dropdown-item border" href="#">$500.00</li>
                                 </ul>
                             </div>
+
                             <div class="mt-4">
                                 <input class="form-control" type="text" id="amt" readonly />
                             </div>
                             <div class="mt-4">
-                                <button class="btn btn-danger">Charge to Ledger</button>
+                                <button class="btn btn-danger" onclick="postCharge()">Charge to Ledger</button>
                             </div>
+
                         </div>
                     </li>
                     @*END-----Billing Charge*@
                 </ul>
             </nav>
-
         </div>
     </div>
 
@@ -108,6 +116,7 @@
         @RenderBody()
 
     </main>
+
     <script href="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
     <script src="~/js/Dashboard/bootstrap.bundle.min.js"></script>
     <script src="~/js/Dashboard/jquery-3.5.1.js"></script>
@@ -115,24 +124,34 @@
     <script src="~/js/Dashboard/dataTables.bootstrap5.min.js"></script>
     <script src="~/js/Dashboard/script.js"></script>
 
-    @await RenderSectionAsync("Scripts", required: false)
+    @*for test.cshtml*@
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+
+    <!--notification library using BS-->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/notify/0.4.2/notify.min.js"></script>
+    <!-- Bootstrap core JS-->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdn.startbootstrap.com/sb-forms-latest.js"></script>
 
     @*bill charge section*@
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
-    <script type="text/javascript">
-        var amount1 = 0;
-        $('#amounts li').on('click', function () {
-            $('#amt').val($(this).text());
-            amount1 = $('#amt').val();
-            console.log(amount1);
-            var purchase = {
-                items: [{ id: "xl-tshirt", amount: amount1 }]
-            };
 
-        });
-    </script>
+    @*required by stripe*@
+    <script src="https://polyfill.io/v3/polyfill.min.js?version=3.52.1&features=fetch"></script>
+    <script src="~/js/stripeClient.js" asp-append-version="true" defer></script>
 
+    @*datatable in test.cshtml*@
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
+    <script src="https://unpkg.com/bootstrap-table@1.18.3/dist/bootstrap-table.min.js"></script>
+    <script src="https://cdn.datatables.net/1.10.2/js/jquery.dataTables.min.js"></script>
 
+    <!--includes popover library using BS, all other custom code-->
+    <script src="~/js/site.js"></script>
+    
+    @await RenderSectionAsync("Scripts", required: false)
+
+   
 
 </body>
 

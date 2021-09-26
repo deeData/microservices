@@ -123,16 +123,42 @@ var loading = function (isLoading) {
 
 
 
-//------------------------my edits-addons-----------------------------
+//------------------------my edits/addons-----------------------------
 var setUpmessage = function (clientToken, amount) {
     if (clientToken) {
-        $("#stripeResponse").text("$" + amount + " payment is ready to be processed with Stripe client token.   ");
+        var $res = $("#stripeResponse"); //id also used by Stripe's Client code
+        $res.removeClass("bg-danger");
+        $res.addClass("bg-warning");
+        $res.text("$" + amount + " payment is ready to be processed (with Stripe client secret).   ");
         $("#stripeResponseTime").text(dateTimeStamp(new Date()));
     }
 };
 
 var paymentMessage = function (amount) {
-    var message = "Success: Payment of $" + amount + " has been posted to the billing ledger.   ";
-    $("#stripeResponse").text(message);
+    var message = "Success: Payment of $" + amount + " is posted to the billing ledger.   ";
+    var $res = $("#stripeResponse");
+    $res.removeClass("bg-warning");
+    $res.addClass("bg-success");
+    $res.text(message);
     $("#stripeResponseTime").text(dateTimeStamp(new Date()));
 };
+
+
+//model required by Stripe
+//var purchase = {
+//    items: [{ id: "xl-tshirt", amount: 2 }]
+//};
+var purchase1 = { items: [] };
+
+$("#submitAmt").click(function () {
+    $pay = $('#payAmount');
+    var amount = $pay.val();
+    purchase1.items.push({ id: "xl-tshirt", amount: amount });
+    console.log(purchase1);
+    $pay.prop('disabled', true);
+    $("#submittedMessage").html("Amount Submitted:");
+    $("#submitAmt").hide();
+    callStripe(amount);
+    $("#stripeWidget").fadeIn();
+    //$pay.val('');
+});

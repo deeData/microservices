@@ -4,7 +4,7 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace WebAppMVC.Models
+namespace BillingApi.Model.Dtos
 {
     public class LedgerItemDto
     {
@@ -15,6 +15,5 @@ namespace WebAppMVC.Models
         //[Range(0, 1000000)]
         public double Credit { get; set; } = 0;
         public string Remarks { get; set; }
-
     }
 }

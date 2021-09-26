@@ -2,7 +2,10 @@
 @using System.Text.Json;
 @{
     Layout = "~/Views/Shared/_LayoutBilling.cshtml";
-    var myModel = JsonSerializer.Serialize(Model);
+    var myModel = JsonSerializer.Serialize(Model, new JsonSerializerOptions() { 
+        //have set json keys as lower case
+        PropertyNamingPolicy = JsonNamingPolicy.CamelCase
+    });
 }
 
 @section Styles{
@@ -27,12 +30,12 @@
             <table id="dataTable" class="table table-responsive table-striped table-bordered table-hover" data-s>
                 <thead>
                     <tr>
-                        <th data-field="Posted" data-formatter="dateTimeStamp">Posted</th>
-                        <th data-field="Description">Billing Entry</th>
-                        <th data-field="Debit" data-formatter="currencyFormat">Debit</th>
-                        <th data-field="Credit" data-formatter="currencyFormat">Credit</th>
+                        <th data-field="posted" data-formatter="dateTimeStamp">Posted</th>
+                        <th data-field="description">Billing Entry</th>
+                        <th data-field="debit" data-formatter="currencyFormat">Debit</th>
+                        <th data-field="credit" data-formatter="currencyFormat">Credit</th>
                         <th data-formatter="getBalance">Adjusted Balance</th>
-                        <th data-field="Remarks">Remarks</th>
+                        <th data-field="remarks">Remarks</th>
                     </tr>
                 </thead>
             </table>
@@ -64,7 +67,7 @@
                     </div>
                     <span class="card-header text-danger font-weight-bold">System Message</span><small><span id="stripeResponseTime"></span></small>
                     <div class="card-body">
-                        <span class="card-text bg-danger text-light font-weight-bold" id="stripeResponse"></span>
+                        <span class="card-text bg-danger text-light font-weight-bold" id="stripeResponse">"Plase stand by......"</span>
                     </div>
 
                     @*HIDE UNDER USER SUBMITS PAYMENT AMOUNT*@
@@ -156,88 +159,10 @@
 
 @section Scripts{
 
-    <script src="~/lib/jquery/dist/jquery.min.js"></script>
-    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
-    <!--popover library using BS-->
-    <script src="~/js/site.js"></script>
-    <!--notification library using BS-->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/notify/0.4.2/notify.min.js"></script>
-    <!-- Bootstrap core JS-->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="https://cdn.startbootstrap.com/sb-forms-latest.js"></script>
-
-    @*datatable in test.cshtml*@
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
-    <script src="https://unpkg.com/bootstrap-table@1.18.3/dist/bootstrap-table.min.js"></script>
-    <script src="https://cdn.datatables.net/1.10.2/js/jquery.dataTables.min.js"></script>
-
-
     <script>
-
-        var currencyFormatter = new Intl.NumberFormat('en-US', {
-            style: 'currency',
-            currency: 'USD',
-        });
-
-        var format = function (data) {
-            return currencyFormatter.format(data);
-        }
-
-        var currencyFormat = function (column, row, index) {
-            return format(column);
-        }
-
-        //for ledger datatable
-        var runningTotal = 0;
-        //goes through every preceding row
-        var getBalance = function (column, row, index) {
-            runningTotal += row.Debit;
-            runningTotal += row.Credit;
-            return format(runningTotal);
-        }
-
         //get model from backend to front end
         var s = `@Html.Raw(myModel)`;
         var jsonData = JSON.parse(s);
-
-        $(document).ready(function () {
-            var $table = $('#dataTable')
-            $table.bootstrapTable({
-                data: jsonData
-            });
-            $table.dataTable();
-        });
     </script>
-
-
-    @*payment widget*@
-    <script type="text/javascript">
-
-        //model required by Stripe 
-        //var purchase = {
-        //    items: [{ id: "xl-tshirt", amount: 2 }]
-        //};
-        var purchase1 = { items: [] };
-
-        $("#submitAmt").click(function (){
-            var amount = $('#payAmount').val();
-            purchase1.items.push({ id: "xl-tshirt", amount: amount });
-            console.log(purchase1);
-            $('#payAmount').prop('disabled', true);
-            $("#submittedMessage").html("Amount Submitted:");
-            $("#submitAmt").hide();
-            callStripe(amount);
-            $("#stripeWidget").fadeIn();
-        });
-    </script>
-    <script src="https://polyfill.io/v3/polyfill.min.js?version=3.52.1&features=fetch"></script>
-    <script src="~/js/stripeClient.js" asp-append-version="true" defer></script>
-
-
-
-
-
-
-
 
 }

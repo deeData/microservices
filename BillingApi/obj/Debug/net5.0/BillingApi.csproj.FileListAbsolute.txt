@@ -32,7 +32,6 @@ C:\Users\deidr\repos\microservices\MicroServicesSolution\PaymentProcessAPI\obj\D
 C:\Users\deidr\repos\microservices\MicroServicesSolution\PaymentProcessAPI\obj\Debug\net5.0\ref\BillingApi.dll
 C:\Users\deidr\repos\microservices\MicroServicesSolution\PaymentProcessAPI\obj\Debug\net5.0\BillingApi.pdb
 C:\Users\deidr\repos\microservices\MicroServicesSolution\PaymentProcessAPI\obj\Debug\net5.0\BillingApi.genruntimeconfig.cache
-C:\Users\deidr\repos\microservices\MicroServicesSolution\BillingApi\obj\Debug\net5.0\BillingApi.csproj.AssemblyReference.cache
 C:\Users\deidr\repos\microservices\MicroServicesSolution\BillingApi\obj\Debug\net5.0\BillingApi.GeneratedMSBuildEditorConfig.editorconfig
 C:\Users\deidr\repos\microservices\MicroServicesSolution\BillingApi\obj\Debug\net5.0\BillingApi.AssemblyInfoInputs.cache
 C:\Users\deidr\repos\microservices\MicroServicesSolution\BillingApi\obj\Debug\net5.0\BillingApi.AssemblyInfo.cs
@@ -66,3 +65,4 @@ C:\Users\deidr\repos\microservices\MicroServicesSolution\BillingApi\obj\Debug\ne
 C:\Users\deidr\repos\microservices\MicroServicesSolution\BillingApi\obj\Debug\net5.0\BillingApi.RazorTargetAssemblyInfo.cache
 C:\Users\deidr\repos\microservices\MicroServicesSolution\BillingApi\obj\Debug\net5.0\BillingApi.csproj.CopyComplete
 C:\Users\deidr\repos\microservices\MicroServicesSolution\BillingApi\obj\Debug\net5.0\BillingApi.genruntimeconfig.cache
+C:\Users\deidr\repos\microservices\MicroServicesSolution\BillingApi\obj\Debug\net5.0\BillingApi.csproj.AssemblyReference.cache
