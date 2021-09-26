@@ -1,76 +1,62 @@
 ﻿// Please see documentation at https://docs.microsoft.com/aspnet/core/client-side/bundling-and-minification
 // for details on configuring this project to bundle and minify static web assets.
 
-$(document).ready(function () {
-    var $table = $('#dataTable')
-    $table.bootstrapTable({
-        data: jsonData
-    });
-    $table.dataTable();
-
-});
-
-var jsonItem = {};
-function postCharge() {
-    jsonItem.debit = amount;
-    //console.log(JSON.stringify(jsonItem));
-    $('#amt').val("");
-
-    $.ajax({
-        type: "POST",
-        //data being sent to API should be a JSON string
-        data: JSON.stringify(jsonItem),
-        //expected reponse from API is json
-        dataType: "json",
-        //type sent to server
-        contentType: 'application/json; charset=utf-8',
-        //api request to
-        url: "https://localhost:44372/api/payment/charge",
-        //if response is successful
-        success: function (result) {
-            jsonData.push(result);
-            var $table = $('#dataTable')
-            $table.bootstrapTable('load', jsonData);
-            console.log(jsonData);
-        },
-        error: function (jqXHR, textStatus, errorThrown) {
-            console.log("ERROR");
-            console.log(jqXHR, textStatus, errorThrown);
-        }
-
-    });
-
-
-}
-
-
 //billing charge section
-var amount = 0;
+var amount = null;
+var remark = null;
 $('#amounts li').on('click', function () {
-    amount1 = 0;
+    _amount = 0;
+
+    remark = $(this).find('span.violation').text();
+    _amount = $(this).find('span.fine').text();
+    var display = remark + " $" + _amount;
     //set charge field display
-    $('#amt').val($(this).text());
-    amount1 = $('#amt').val();
-    amount = parseFloat(amount1);
+    $('#amt').val(display);
+   
+    amount = parseFloat(_amount);
     //console.log(amount1);
 
     var purchase = {
-        items: [{ id: "item", amount: amount1 }]
+        items: [{ id: "item", amount: amount }]
     };
 
 });
 
 
-//used in home page
-$(function () {
-    $('data-toggle="tooltip"').tooltip();
-});
+var jsonItem = {};
+function postCharge() {
 
-//popover bootstrap
-$('.popover-hover').popover({
-    trigger: 'hover'
-})
+    if (amount != null) {
+        jsonItem.remarks = remark;
+        jsonItem.debit = amount;
+        //console.log(JSON.stringify(jsonItem));
 
+        $.ajax({
+            type: "POST",
+            //data being sent to API should be a JSON string
+            data: JSON.stringify(jsonItem),
+            //expected reponse from API is json
+            dataType: "json",
+            //type sent to server
+            contentType: 'application/json; charset=utf-8',
+            //api request to
+            url: "https://localhost:44372/api/payment/charge",
+            //if response is successful
+            success: function (result) {
+                jsonData.push(result);
+                var $table = $('#dataTable')
+                $table.bootstrapTable('load', jsonData);
+                console.log(jsonData);
+            },
+            error: function (jqXHR, textStatus, errorThrown) {
+                console.log(jqXHR, textStatus, errorThrown);
+            }
+        });
+    }
+    $('#amt').val("");
+    amount = null;
+    remark = null;
+}
 
 $(".bi-clipboard").click(function () {
     var text = $(this).prev("input").val();
@@ -114,4 +100,23 @@ var getBalance = function (column, row, index) {
     runningTotal += row.credit;
     return format(runningTotal);
 }
+
+$(".bi-arrow-counterclockwise").on('click', function () {
+    //$('#pymtDiv').load(document.URL + ' #pymtDiv');
+    location.reload();
+
+});
+
+$('.popover-hover').popover({
+    trigger: 'hover'
+});
+
+$(document).ready(function () {
+    var $table = $('#dataTable')
+    $table.bootstrapTable({
+        data: jsonData
+    });
+    $table.dataTable();
+
+});
 

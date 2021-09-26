@@ -153,7 +153,7 @@ var purchase1 = { items: [] };
 $("#submitAmt").click(function () {
     $pay = $('#payAmount');
     var amount = $pay.val();
-    purchase1.items.push({ id: "xl-tshirt", amount: amount });
+    purchase1.items.push({ id: "item", amount: amount });
     console.log(purchase1);
     $pay.prop('disabled', true);
     $("#submittedMessage").html("Amount Submitted:");

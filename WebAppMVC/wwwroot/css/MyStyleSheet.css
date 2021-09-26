@@ -15,4 +15,13 @@
 }
 
 
+span.usd {
+    float: left;
+    text-align: left;
+}
 
+    span.usd::before {
+        float: left;
+        content: "\0024"; /* $ */
+        padding: 3px 4px 3px 3px;
+    }

@@ -18,17 +18,24 @@ namespace PaymentApi.Controllers
     {
 
         [HttpPost("charge")]
-        //fromBody means not from url but from the html
+        //ajax call from client sending debit charge and remark
         public IActionResult Charge([FromBody]LedgerItemDto ledgerItem)
         {
+            LedgerItemDto newCharge = new LedgerItemDto();
+            newCharge.Posted = DateTime.Now;
+            newCharge.Description = "Charge";
+            newCharge.Debit = ledgerItem.Debit * -1;
+            newCharge.Remarks = ledgerItem.Remarks;
+            
             //get ledger item and post to backend
-            //send back all ledger items or only the new one for update
+            //at success of updated db, return the new item to the client, else return error
+            
             if (ledgerItem == null)
             {
                 return NotFound();
             }
 
-            return Ok(ledgerItem);
+            return Ok(newCharge);
         }
 
         //webhook connection with Stripe - to get response from Stripe after web client sends payment data with a client secret to proccess a payment

@@ -35,7 +35,7 @@
                         <a class="nav-link text-light" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link active text-secondary" aria-current="page"  href="https://medium.com/@@deidra108?p=cbf3fd1bad00" target="_blank" id="link-text">Traffic ML (Python)</a>
+                        <a class="nav-link active text-secondary" aria-current="page" href="https://medium.com/@@deidra108?p=cbf3fd1bad00" target="_blank" id="link-text">Traffic ML (Python)</a>
                     </li>
                 </ul>
                 <ul class="navbar-nav mb-2 mb-lg-0">
@@ -82,17 +82,17 @@
                         <div class="">
                             <div class="dropdown">
                                 <button class="btn btn-success dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                    Select Charge Amount$
+                                    Select Charge/Fine
                                 </button>
                                 <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton" id="amounts">
-                                    @*<li class="dropdown-item border" href="#"><h6>Defective Vehicle: </h6><input hidden class="charge" value="50.99" />$50.99</li>
-                                        <li class="dropdown-item border" href="#"><h6>Speeding: </h6>$80.00</li>
-                                        <li class="dropdown-item border" href="#"><h6>Reckless Driving: </h6>$100.00</li>
-                                        <li class="dropdown-item border" href="#"><h6>DUI:  </h6>$500.00</li>*@
-                                    <li class="dropdown-item border" href="#">50.99</li>
-                                    <li class="dropdown-item border" href="#">80.00</li>
-                                    <li class="dropdown-item border" href="#">100.00</li>
-                                    <li class="dropdown-item border" href="#">$500.00</li>
+                                    <li class="dropdown-item border" href="#"><span class="violation">Defective Vehicle</span>
+                                        <span> $</span><span class="fine">50.00</span></li>
+                                    <li class="dropdown-item border" href="#"><span class="violation">Speeding</span>
+                                        <span> $</span><span class="fine">80.00</span></li>
+                                    <li class="dropdown-item border" href="#"><span class="violation">Reckless Driving</span>
+                                        <span> $</span><span class="fine">100.00</span></li>
+                                    <li class="dropdown-item border" href="#"><span class="violation">DUI</span>
+                                        <span> $</span><span class="fine">500.00</span></li>
                                 </ul>
                             </div>
 
@@ -148,10 +148,10 @@
 
     <!--includes popover library using BS, all other custom code-->
     <script src="~/js/site.js"></script>
-    
+
     @await RenderSectionAsync("Scripts", required: false)
 
-   
+
 
 </body>
 
