@@ -23,7 +23,7 @@ namespace PaymentApi.Controllers
             LedgerItemDto newCharge = new LedgerItemDto();
             newCharge.Posted = DateTime.Now;
             newCharge.Description = "Charge";
-            newCharge.Debit = ledgerItem.Debit * -1;
+            newCharge.Debit = ledgerItem.Debit;
             newCharge.Remarks = ledgerItem.Remarks;
             newCharge.User = ledgerItem.User;
             

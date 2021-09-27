@@ -12,9 +12,9 @@ namespace WebAppMVC.Models
         public int LedgerItemId { get; set; }
         public DateTime Posted { get; set; }
         public string Description { get; set; }
-        //[Range(0, -1000000)]
+        [Range(-1000000, -0.01)]
         public double Debit { get; set; } = 0;
-        //[Range(0, 1000000)]
+        [Range(0.01, 1000000)]
         public double Credit { get; set; } = 0;
         public string Remarks { get; set; }
         public string User { get; set; }

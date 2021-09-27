@@ -28,8 +28,9 @@ function postCharge() {
 
     if (amount != null) {
         jsonItem.remarks = remark;
-        jsonItem.debit = amount;
+        jsonItem.debit = amount *-1;
         //console.log(JSON.stringify(jsonItem));
+        console.log(jsonItem.debit);
 
         $.ajax({
             type: "POST",
