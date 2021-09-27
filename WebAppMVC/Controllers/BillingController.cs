@@ -4,31 +4,29 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using WebAppMVC.Models;
+using WebAppMVC.RestClients;
 
 namespace WebAppMVC.Controllers
 {
     public class BillingController : Controller
     {
-        List<LedgerItemDto> ledgerItems = new List<LedgerItemDto>()
-            {
-                new LedgerItemDto{ Posted =  new DateTime(2021, 9, 10), Description = "Charge", Debit = -45.99, Remarks = "", User = ""},
-                new LedgerItemDto{ Posted = new DateTime(2021, 9, 15), Description = "Payment", Credit = 5.00, Remarks = "Order#123", User = ""},
-                new LedgerItemDto{ Posted = DateTime.Now, Description = "Charge", Debit = -1.99, Remarks = "Card# 123", User = ""},
-                new LedgerItemDto{ Posted =  new DateTime(2021, 9, 10), Description = "Charge", Debit = -45.99, Remarks = "", User = ""},
-                new LedgerItemDto{ Posted = new DateTime(2021, 9, 15), Description = "Payment", Credit = 5.00, Remarks = "Order#123", User = ""},
-                new LedgerItemDto{ Posted = DateTime.Now, Description = "Charge", Debit = -1.99, Remarks = "Card# 123", User = ""},
-
-            };
+        private readonly IBillingTransactionsApi _billingTransactionsApi;
+        public BillingController(IBillingTransactionsApi billingTransactionsApi)
+        {
+            _billingTransactionsApi = billingTransactionsApi;
+        }
 
         [HttpGet]
         public IActionResult Payment()
         {
-            return View(ledgerItems);
+            return View();
         }
 
         [HttpGet]
-        public IActionResult Test()
+        public async Task<IActionResult> Test()
         {
+            //list of ledger items
+            var ledgerItems = await _billingTransactionsApi.GetAllTransactions();
             return View(ledgerItems);
         }
     }

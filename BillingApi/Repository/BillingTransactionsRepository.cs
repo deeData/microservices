@@ -17,9 +17,9 @@ namespace BillingApi.Repository
         private IMapper _mapper;
         public BillingTransactionsRepository(ApplicationDbContext db, IMapper mapper) { _db = db; _mapper = mapper; }
 
-        public async Task<IEnumerable<LedgerItemDto>> GetAllTransactions()
+        public async Task<List<LedgerItemDto>> GetAllTransactions()
         {
-            List<LedgerItem> ledgerItems = await _db.LedgerItems.ToListAsync();
+            IEnumerable<LedgerItem> ledgerItems = await _db.LedgerItems.ToListAsync();
             return _mapper.Map<List<LedgerItemDto>>(ledgerItems);
         }
 

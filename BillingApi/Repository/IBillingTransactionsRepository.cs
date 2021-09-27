@@ -11,6 +11,6 @@ namespace BillingApi.Repository
     {
         Task<bool> DebitChargeApply(LedgerItemDto ledgerItem);
         Task<bool> CreditPaymentApply(LedgerItemDto ledgerItem);
-        Task<IEnumerable<LedgerItemDto>> GetAllTransactions();
+        Task<List<LedgerItemDto>> GetAllTransactions();
     }
 }

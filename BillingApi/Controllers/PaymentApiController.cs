@@ -26,16 +26,16 @@ namespace PaymentApi.Controllers
 
 
         [HttpGet]
-        public async Task<IEnumerable<LedgerItemDto>> Get()
+        public async Task<List<LedgerItemDto>> Get()
         {
             try
             {
-                IEnumerable<LedgerItemDto> ledgerItemDtos = await _billingTransactionsRepository.GetAllTransactions();
+                List<LedgerItemDto> ledgerItemDtos = await _billingTransactionsRepository.GetAllTransactions();
                 return ledgerItemDtos;
             }
             catch (Exception e)
             {
-                Console.WriteLine("ERROR. Cannot get ledger items from DB.");
+                Console.WriteLine("ERROR. Cannot get ledger items from DB. " + e);
                 throw;
             }
         }
