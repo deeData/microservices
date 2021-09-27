@@ -1,3 +1,5 @@
+using AutoMapper;
+using BillingApi;
 using BillingApi.DbContexts;
 using BillingApi.Repository;
 using Microsoft.AspNetCore.Builder;
@@ -32,11 +34,18 @@ namespace PaymentProcessAPI
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            //connection to and service in Db
             services.AddDbContext<ApplicationDbContext>(options =>
                 options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
 
-            //repository pattern accessible to Controller
-            services.AddScoped<IChargeRepository, ChargeRepository>();
+            //create mapper and add as singleton, configure to .netcoreAPI, set mapping rules in MappingConfig file
+            IMapper mapper = MappingConfig.RegisterMaps().CreateMapper();
+            services.AddSingleton(mapper);
+            //add AutoMapper for DTO conversion
+            services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
+
+            //IRepository pattern accessible to Controller
+            services.AddScoped<IBillingTransactionsRepository, BillingTransactionsRepository>();
 
             services.AddCors(options =>
             {
