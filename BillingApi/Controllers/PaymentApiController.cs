@@ -16,9 +16,8 @@ namespace PaymentApi.Controllers
     [Route("api/payment")]
     public class PaymentApiController : Controller
     {
-
-        [HttpPost("charge")]
         //ajax call from client sending debit charge and remark
+        [HttpPost("charge")]
         public IActionResult Charge([FromBody]LedgerItemDto ledgerItem)
         {
             LedgerItemDto newCharge = new LedgerItemDto();
@@ -26,6 +25,7 @@ namespace PaymentApi.Controllers
             newCharge.Description = "Charge";
             newCharge.Debit = ledgerItem.Debit * -1;
             newCharge.Remarks = ledgerItem.Remarks;
+            newCharge.User = ledgerItem.User;
             
             //get ledger item and post to backend
             //at success of updated db, return the new item to the client, else return error
@@ -38,7 +38,8 @@ namespace PaymentApi.Controllers
             return Ok(newCharge);
         }
 
-        //webhook connection with Stripe - to get response from Stripe after web client sends payment data with a client secret to proccess a payment
+        //webhook connection with Stripe - get response from Stripe after web client sends payment data with a client secret to proccess a payment
+        //user stripe CLI for localhost
         [HttpPost("webhook")]
         public async Task<IActionResult> StripeWebhook()
         {
@@ -46,7 +47,7 @@ namespace PaymentApi.Controllers
 
             try
             {
-                //set throwOnApiVersionMismatch as true when in production
+                //set throwOnApiVersionMismatch as "true" when in production
                 var stripeEvent = EventUtility.ParseEvent(json, throwOnApiVersionMismatch: false);
 
                 // Handle the event
@@ -54,11 +55,13 @@ namespace PaymentApi.Controllers
                 {
                     var paymentIntent = stripeEvent.Data.Object as PaymentIntent;
                     Console.WriteLine("PaymentIntent was successful!");
+                    Console.WriteLine(paymentIntent);
                 }
                 else if (stripeEvent.Type == Events.PaymentMethodAttached)
                 {
                     var paymentMethod = stripeEvent.Data.Object as PaymentMethod;
                     Console.WriteLine("PaymentMethod was attached to a Customer!");
+                    Console.WriteLine(paymentMethod);
                 }
                 // ... handle other event types
                 else
@@ -74,7 +77,7 @@ namespace PaymentApi.Controllers
             }
         }
 
-
+        //server generates client secret (required by Stripe) and sends to Stripe to initialize
         [HttpPost("secret")]
         public ActionResult GetSecret([FromBody]PaymentIntentCreateRequest request)
         {
@@ -93,6 +96,7 @@ namespace PaymentApi.Controllers
             // Replace this constant with a calculation of the order's amount
             // Calculate the order total on the server to prevent
             // people from directly manipulating the amount on the client
+
             //LINQ iterating through IEnumerable of items
             int cents = (int)(items.Sum(item => item.Amount * 100));
             return cents;

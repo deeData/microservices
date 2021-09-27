@@ -8,6 +8,8 @@ namespace WebAppMVC.Models
 {
     public class LedgerItemDto
     {
+        [Key]
+        public int LedgerItemId { get; set; }
         public DateTime Posted { get; set; }
         public string Description { get; set; }
         //[Range(0, -1000000)]
@@ -15,6 +17,7 @@ namespace WebAppMVC.Models
         //[Range(0, 1000000)]
         public double Credit { get; set; } = 0;
         public string Remarks { get; set; }
+        public string User { get; set; }
 
     }
 }
