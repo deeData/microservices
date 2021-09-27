@@ -30,7 +30,7 @@ function postCharge() {
         jsonItem.remarks = remark;
         jsonItem.debit = amount *-1;
         //console.log(JSON.stringify(jsonItem));
-        console.log(jsonItem.debit);
+        //console.log(jsonItem.debit);
 
         $.ajax({
             type: "POST",
@@ -47,7 +47,8 @@ function postCharge() {
                 jsonData.push(result);
                 var $table = $('#dataTable')
                 $table.bootstrapTable('load', jsonData);
-                console.log(jsonData);
+                generalMessage("Charge of $" + result['debit']*-1 + " for " + result['remarks'] + " is posted to the billing ledger.");
+                //console.log(jsonData);
             },
             error: function (jqXHR, textStatus, errorThrown) {
                 console.log(jqXHR, textStatus, errorThrown);
@@ -118,6 +119,6 @@ $(document).ready(function () {
         data: jsonData
     });
     $table.dataTable();
-
+ 
 });
 

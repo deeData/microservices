@@ -128,6 +128,7 @@ var setUpmessage = function (clientToken, amount) {
     if (clientToken) {
         var $res = $("#stripeResponse"); //id also used by Stripe's Client code
         $res.removeClass("bg-danger");
+        $res.removeClass("bg-success");
         $res.addClass("bg-warning");
         $res.text("$" + amount + " payment is ready to be processed (with Stripe client secret).   ");
         $("#stripeResponseTime").text(dateTimeStamp(new Date()));
@@ -143,6 +144,14 @@ var paymentMessage = function (amount) {
     $("#stripeResponseTime").text(dateTimeStamp(new Date()));
 };
 
+var generalMessage = function (message) {
+    var $res = $("#stripeResponse");
+    $res.removeClass("bg-danger");
+    $res.removeClass("bg-warning");
+    $res.addClass("bg-success");
+    $res.text(message);
+    $("#stripeResponseTime").text(dateTimeStamp(new Date()));
+};
 
 //model required by Stripe
 //var purchase = {

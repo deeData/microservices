@@ -49,54 +49,59 @@
         <div class="container mt-xxl-1 col-md-6" style="min-width: 30rem;">
             <div class="card text-white bg-secondary mb-3" id="pymtDiv">
                 <div class="container">
-                    <div class="card-header mt-1">
-                        Payment Processing
-                        <i class="bi bi-arrow-counterclockwise float-end popover-hover" data-content="Refresh for every new payment transaction."></i>
-                    </div>
-                    <div class="card-body">
-                        <div class="row">
-                            <div class="col-4" id="submittedMessage">
-                                <h8>Enter and Submit Payment Amount.</h8>
-                            </div>
-                            <div class="col-3">
-                                <input class="form-control" type="text" id="payAmount" />
-                            </div>
-                            <div class="col-3">
-                                <button class="btn btn-primary" id="submitAmt">Submit</button>
+                    <div class="mt-4">
+                        <div class="card-header mt-1 bg-dark">
+                            <span class="card-header text-danger font-weight-bold">System Message</span><small><span id="stripeResponseTime"></span></small>
+                            <div class="card-body">
+                                <span class="card-text bg-danger text-light font-weight-bold" id="stripeResponse">"Plase stand by......"</span>
                             </div>
                         </div>
                     </div>
-                    <span class="card-header text-danger font-weight-bold">System Message</span><small><span id="stripeResponseTime"></span></small>
-                    <div class="card-body">
-                        <span class="card-text bg-danger text-light font-weight-bold" id="stripeResponse">"Plase stand by......"</span>
-                    </div>
-
-                    @*HIDE UNDER USER SUBMITS PAYMENT AMOUNT*@
-                    <div class="card-body" style="display: none" id="stripeWidget">
-                        <div class="card-header mt-1">
-                            <h6 class="text-primary font-weight-bolder bg-light">Please enter test credit card info for payment processing. See "Testing Options".</h6>
+                        <div class="card-header mt-2">
+                            Payment Processing
+                            <i class="bi bi-arrow-counterclockwise float-end popover-hover" data-content="Refresh for every new payment transaction."></i>
                         </div>
-                        <!-- Stripe payment widget -->
-                        <form id="payment-form" class="container">
-                            <div id="card-element"><!--Stripe.js injects the Card Element--></div>
-                            <button id="submit">
-                                <div class="spinner hidden" id="spinner"></div>
-                                <span id="button-text">Pay now</span>
-                            </button>
-                            <p id="card-error" role="alert"></p>
-                            <p class="result-message hidden">
-                                Payment succeeded, see the result in your
-                                <a href="" target="_blank">Stripe dashboard.</a> Refresh the page to pay again.
-                            </p>
-                        </form>
-                    </div>
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col-4" id="submittedMessage">
+                                    <h8>Enter and Submit Payment Amount.</h8>
+                                </div>
+                                <div class="col-3">
+                                    <input class="form-control" type="text" id="payAmount" />
+                                </div>
+                                <div class="col-3">
+                                    <button class="btn btn-primary" id="submitAmt">Submit</button>
+                                </div>
+                            </div>
+                        </div>
 
+
+                        @*HIDE UNDER USER SUBMITS PAYMENT AMOUNT*@
+                        <div class="card-body" style="display: none" id="stripeWidget">
+                            <div class="card-header mt-1">
+                                <h6 class="text-primary font-weight-bolder bg-light">Please enter test credit card info for payment processing. See "Payment Testing Options".</h6>
+                            </div>
+                            <!-- Stripe payment widget -->
+                            <form id="payment-form" class="container">
+                                <div id="card-element"><!--Stripe.js injects the Card Element--></div>
+                                <button id="submit">
+                                    <div class="spinner hidden" id="spinner"></div>
+                                    <span id="button-text">Pay now</span>
+                                </button>
+                                <p id="card-error" role="alert"></p>
+                                <p class="result-message hidden">
+                                    Payment succeeded, see the result in your
+                                    <a href="" target="_blank">Stripe dashboard.</a> Refresh the page to pay again.
+                                </p>
+                            </form>
+                        </div>
+
+                    </div>
                 </div>
-            </div>
         </div>
         <div class="container mt-xxl-1 col-md-6" style="min-width: 30rem;">
             <div class="card text-white bg-secondary mb-3">
-                <div class="card-header mt-1">Testing Options</div>
+                <div class="card-header mt-1">Payment Testing Options</div>
                 <div class="card-body">
                     <h5 class="card-title">Stripe Integration Testing</h5>
                     <p class="card-text">
