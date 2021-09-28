@@ -21,7 +21,6 @@
 
 <div class="container-fluid bg-light">
 
-
     <div class="row mt-3 mb-2">
         <div class="col-md-3 fw-bold fs-4">Billing Ledger</div>
     </div>
@@ -31,7 +30,7 @@
             <table id="dataTable" class="table table-responsive table-striped table-bordered table-hover" data-s>
                 <thead>
                     <tr>
-                        <th data-field="ledgerItemId" data-visible="true" hidden>LedgerItemId</th>
+                        @*<th data-field="ledgerItemId" data-visible="true" hidden>LedgerItemId</th>*@
                         <th data-field="posted" data-formatter="dateTimeStamp">Posted</th>
                         <th data-field="description">Billing Entry</th>
                         <th data-field="debit" data-formatter="currencyFormat">Debit</th>
@@ -44,7 +43,6 @@
             </table>
         </div>
     </div>
-
 
     <div class="row">
         <div class="container mt-xxl-1 col-md-6" style="min-width: 30rem;">
@@ -75,7 +73,6 @@
                             </div>
                         </div>
                     </div>
-
 
                     @*HIDE UNDER USER SUBMITS PAYMENT AMOUNT*@
                     <div class="card-body" style="display: none" id="stripeWidget">

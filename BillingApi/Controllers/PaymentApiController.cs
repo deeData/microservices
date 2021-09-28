@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.SignalR;
 using Microsoft.Extensions.Configuration;
 using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 using Stripe;
 using Stripe.Checkout;
 using System;
@@ -88,22 +89,18 @@ namespace PaymentApi.Controllers
                 var stripeEvent = EventUtility.ParseEvent(json, throwOnApiVersionMismatch: false);
 
                 // Handle the event
-                if (stripeEvent.Type == Events.PaymentIntentSucceeded)
+                if (stripeEvent.Type == Events.ChargeSucceeded)
                 {
-                    var paymentIntent = stripeEvent.Data.Object as PaymentIntent;
-                    Console.WriteLine("PaymentIntent was successful!");
-                }
-                else if (stripeEvent.Type == Events.PaymentMethodAttached)
-                {
-                    var paymentMethod = stripeEvent.Data.Object as PaymentMethod;
-                    Console.WriteLine("PaymentMethod was attached to a Customer!");
-                    //SignalR - params: methodName in client, [other]
-                    await _hubContext.Clients.All.SendAsync("systemMessageMethod", "Posted: Paid with card ending " + paymentMethod.Card);
+                    var charge = stripeEvent.Data.Object as Charge;
+                    var last4 = charge.PaymentMethodDetails.Card.Last4;
+                    //var jObject = JObject.Parse(json);
+                    //var last4 = jObject["data"]["object"]["payment_method_details"]["card"]["last4"].Value<string>();
+                    Console.WriteLine($"Charge was successful! Last 4 of the card is { last4 }");
                 }
                 // ... handle other event types
                 else
                 {
-                    Console.WriteLine("Unhandled event type: {0}", stripeEvent.Type);
+                    Console.WriteLine($"Unhandled event type: {stripeEvent.Type}, json {json}");
                 }
 
                 return Ok();
