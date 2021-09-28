@@ -1,6 +1,7 @@
 using AutoMapper;
 using BillingApi;
 using BillingApi.DbContexts;
+using BillingApi.Hubs;
 using BillingApi.Repository;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -11,6 +12,8 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.Options;
+using Microsoft.Net.Http.Headers;
 using Microsoft.OpenApi.Models;
 using Stripe;
 using System;
@@ -38,6 +41,14 @@ namespace PaymentProcessAPI
             services.AddDbContext<ApplicationDbContext>(options =>
                 options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
 
+            //SignalR - communicate to client after event from backend (backend to client notification)
+            services.AddSignalR()
+                //payload json serialization option to null (means do not change the default camel casing)
+                .AddJsonProtocol(options =>
+                {
+                    options.PayloadSerializerOptions.PropertyNamingPolicy = null;
+                });
+
             //create mapper and add as singleton, configure to .netcoreAPI, set mapping rules in MappingConfig file
             IMapper mapper = MappingConfig.RegisterMaps().CreateMapper();
             services.AddSingleton(mapper);
@@ -52,9 +63,11 @@ namespace PaymentProcessAPI
                 options.AddPolicy(name: MyAllowSpecificOrigins,
                                   builder =>
                                   {
-                                      builder.AllowAnyOrigin()
+                                      //need to specify origin for SignalR CORS
+                                      builder.WithOrigins("https://localhost:44315")
                                              .AllowAnyHeader()
-                                             .AllowAnyMethod();
+                                             .AllowAnyMethod()
+                                             .AllowCredentials();
                                   });
             });
 
@@ -88,6 +101,8 @@ namespace PaymentProcessAPI
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();
+                //add SignalR endpoint for its newly created hub class to trigger client methods
+                endpoints.MapHub<PaidHub>("/paidhub");
             });
         }
     }

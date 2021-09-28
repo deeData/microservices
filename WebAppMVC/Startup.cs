@@ -36,9 +36,6 @@ namespace WebAppMVC
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
-            //// This is your real test secret API key.
-            //StripeConfiguration.ApiKey = "sk_test_KyhmeSBxeqywno25wv4BgRbS";
-
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
@@ -55,7 +52,7 @@ namespace WebAppMVC
             app.UseRouting();
 
             app.UseAuthorization();
-
+            
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllerRoute(

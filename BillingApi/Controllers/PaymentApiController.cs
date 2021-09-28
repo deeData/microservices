@@ -1,7 +1,9 @@
-﻿using BillingApi.Model.Dtos;
+﻿using BillingApi.Hubs;
+using BillingApi.Model.Dtos;
 using BillingApi.Repository;
 using Microsoft.AspNetCore.Diagnostics;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.SignalR;
 using Microsoft.Extensions.Configuration;
 using Newtonsoft.Json;
 using Stripe;
@@ -19,9 +21,11 @@ namespace PaymentApi.Controllers
     public class PaymentApiController : Controller
     {
         private IBillingTransactionsRepository _billingTransactionsRepository;
-        public PaymentApiController(IBillingTransactionsRepository billingTransactionsRepository)
+        private readonly IHubContext<PaidHub> _hubContext;
+        public PaymentApiController(IBillingTransactionsRepository billingTransactionsRepository, IHubContext<PaidHub> hubContext)
         {
             _billingTransactionsRepository = billingTransactionsRepository;
+            _hubContext = hubContext;
         }
 
 
@@ -31,6 +35,7 @@ namespace PaymentApi.Controllers
             try
             {
                 List<LedgerItemDto> ledgerItemDtos = await _billingTransactionsRepository.GetAllTransactions();
+                Console.WriteLine("======*************************===================GET ALL LEDGER DATA");
                 return ledgerItemDtos;
             }
             catch (Exception e)
@@ -58,6 +63,8 @@ namespace PaymentApi.Controllers
                 bool isApplied = await _billingTransactionsRepository.DebitChargeApply(newCharge);
                 if (isApplied)
                 {
+                    //SignalR - params: methodName in client, [other]
+                    await _hubContext.Clients.All.SendAsync("paymentSuccessMethod", "This is my message");
                     return Ok(newCharge);
                 }
                 return BadRequest();
@@ -86,13 +93,11 @@ namespace PaymentApi.Controllers
                 {
                     var paymentIntent = stripeEvent.Data.Object as PaymentIntent;
                     Console.WriteLine("PaymentIntent was successful!");
-                    Console.WriteLine(paymentIntent);
                 }
                 else if (stripeEvent.Type == Events.PaymentMethodAttached)
                 {
                     var paymentMethod = stripeEvent.Data.Object as PaymentMethod;
                     Console.WriteLine("PaymentMethod was attached to a Customer!");
-                    Console.WriteLine(paymentMethod);
                 }
                 // ... handle other event types
                 else

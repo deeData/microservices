@@ -408,3 +408,4 @@ C:\Users\deidr\repos\microservices\MicroServicesSolution\WebAppMVC\obj\Debug\net
 C:\Users\deidr\repos\microservices\MicroServicesSolution\WebAppMVC\obj\Debug\net5.0\Razor\Views\Billing\Test.cshtml.g.cs
 C:\Users\deidr\repos\microservices\MicroServicesSolution\WebAppMVC\obj\Debug\net5.0\WebAppMVC.csproj.AssemblyReference.cache
 C:\Users\deidr\repos\microservices\MicroServicesSolution\WebAppMVC\bin\Debug\net5.0\Refit.dll
+C:\Users\deidr\repos\microservices\MicroServicesSolution\WebAppMVC\bin\Debug\net5.0\libman.json
