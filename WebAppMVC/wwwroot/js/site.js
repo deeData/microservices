@@ -12,7 +12,7 @@ $('#amounts li').on('click', function () {
     var display = remark + " $" + _amount;
     //set charge field display
     $('#amt').val(display);
-   
+
     amount = parseFloat(_amount);
     //console.log(amount1);
 
@@ -28,7 +28,7 @@ function postCharge() {
 
     if (amount != null) {
         jsonItem.remarks = remark;
-        jsonItem.debit = amount *-1;
+        jsonItem.debit = amount * -1;
         //console.log(JSON.stringify(jsonItem));
         //console.log(jsonItem.debit);
 
@@ -47,8 +47,8 @@ function postCharge() {
                 jsonData.push(result);
                 var $table = $('#dataTable')
                 $table.bootstrapTable('load', jsonData);
-                generalMessage("Charge of $" + result['debit']*-1 + " for " + result['remarks'] + " is posted to the billing ledger.");
-                //console.log(jsonData);
+                var message = "Charge of $" + result['debit'] * -1 + " for " + result['remarks'] + " is posted to the billing ledger.";
+                generalMessage(message, 'bg-success');
             },
             error: function (jqXHR, textStatus, errorThrown) {
                 console.log(jqXHR, textStatus, errorThrown);
@@ -59,6 +59,23 @@ function postCharge() {
     amount = null;
     remark = null;
 }
+
+function updateLedger() {
+    $.ajax({
+        type: "GET",
+        dataType: "json",
+        contentType: 'application/json; charset=utf-8',
+        url: "https://localhost:44372/api/payment",
+        success: function (result) {
+            var $table = $('#dataTable')
+            $table.bootstrapTable('load', result);
+        },
+        error: function (jqXHR, textStatus, errorThrown) {
+            console.log(jqXHR, textStatus, errorThrown);
+        }
+    });
+}
+
 
 $(".bi-clipboard").click(function () {
     var text = $(this).prev("input").val();
@@ -119,6 +136,6 @@ $(document).ready(function () {
         data: jsonData
     });
     $table.dataTable();
- 
+
 });
 

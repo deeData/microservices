@@ -2,7 +2,8 @@
 @using System.Text.Json;
 @{
     Layout = "~/Views/Shared/_LayoutBilling.cshtml";
-    var myModel = JsonSerializer.Serialize(Model, new JsonSerializerOptions() { 
+    var myModel = JsonSerializer.Serialize(Model, new JsonSerializerOptions()
+    {
         //have set json keys as lower case
         PropertyNamingPolicy = JsonNamingPolicy.CamelCase
     });
@@ -57,47 +58,47 @@
                             </div>
                         </div>
                     </div>
-                        <div class="card-header mt-2">
-                            Payment Processing
-                            <i class="bi bi-arrow-counterclockwise float-end popover-hover" data-content="Refresh for every new payment transaction."></i>
-                        </div>
-                        <div class="card-body">
-                            <div class="row">
-                                <div class="col-4" id="submittedMessage">
-                                    <h8>Enter and Submit Payment Amount.</h8>
-                                </div>
-                                <div class="col-3">
-                                    <input class="form-control" type="text" id="payAmount" />
-                                </div>
-                                <div class="col-3">
-                                    <button class="btn btn-primary" id="submitAmt">Submit</button>
-                                </div>
-                            </div>
-                        </div>
-
-
-                        @*HIDE UNDER USER SUBMITS PAYMENT AMOUNT*@
-                        <div class="card-body" style="display: none" id="stripeWidget">
-                            <div class="card-header mt-1">
-                                <h6 class="text-primary font-weight-bolder bg-light">Please enter test credit card info for payment processing. See "Payment Testing Options".</h6>
-                            </div>
-                            <!-- Stripe payment widget -->
-                            <form id="payment-form" class="container">
-                                <div id="card-element"><!--Stripe.js injects the Card Element--></div>
-                                <button id="submit">
-                                    <div class="spinner hidden" id="spinner"></div>
-                                    <span id="button-text">Pay now</span>
-                                </button>
-                                <p id="card-error" role="alert"></p>
-                                <p class="result-message hidden">
-                                    Payment succeeded, see the result in your
-                                    <a href="" target="_blank">Stripe dashboard.</a> Refresh the page to pay again.
-                                </p>
-                            </form>
-                        </div>
-
+                    <div class="card-header mt-2">
+                        Payment Processing
+                        <i class="bi bi-arrow-counterclockwise float-end popover-hover" data-content="Refresh for every new payment transaction."></i>
                     </div>
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-4" id="submittedMessage">
+                                <h8>Enter and Submit Payment Amount.</h8>
+                            </div>
+                            <div class="col-3">
+                                <input class="form-control" type="text" id="payAmount" />
+                            </div>
+                            <div class="col-3">
+                                <button class="btn btn-primary" id="submitAmt">Submit</button>
+                            </div>
+                        </div>
+                    </div>
+
+
+                    @*HIDE UNDER USER SUBMITS PAYMENT AMOUNT*@
+                    <div class="card-body" style="display: none" id="stripeWidget">
+                        <div class="card-header mt-1">
+                            <h6 class="text-primary font-weight-bolder bg-light">Please enter test credit card info for payment processing. See "Payment Testing Options".</h6>
+                        </div>
+                        <!-- Stripe payment widget -->
+                        <form id="payment-form" class="container">
+                            <div id="card-element"><!--Stripe.js injects the Card Element--></div>
+                            <button id="submit">
+                                <div class="spinner hidden" id="spinner"></div>
+                                <span id="button-text">Pay now</span>
+                            </button>
+                            <p id="card-error" role="alert"></p>
+                            <p class="result-message hidden">
+                                Payment succeeded, see the result in your
+                                <a href="" target="_blank">Stripe dashboard.</a> Refresh the page to pay again.
+                            </p>
+                        </form>
+                    </div>
+
                 </div>
+            </div>
         </div>
         <div class="container mt-xxl-1 col-md-6" style="min-width: 30rem;">
             <div class="card text-white bg-secondary mb-3">
@@ -170,5 +171,35 @@
         var s = `@Html.Raw(myModel)`;
         var jsonData = JSON.parse(s);
     </script>
+
+    @*Signal R*@
+    <script src="~/lib/signalr/dist/browser/signalr.js"></script>
+    <script>
+
+        //create connection obj to SignalR which is a bi-directional communication library
+        const connection = new signalR.HubConnectionBuilder()
+        .withUrl("https://localhost:44372/paidhub")
+        //debug and information available for logging
+        .configureLogging(signalR.LogLevel.Debug)
+        //automatically reconnect if connection drops
+        .withAutomaticReconnect().build();
+
+        var timerId;
+        connection.on("systemMessageMethod", (message) => {
+            updateLedger();
+            displayMessage(message);
+        });
+
+        function displayMessage(message) {
+            clearTimeout(timerId);
+            timerId = setTimeout(function () {
+                generalMessage(message, 'bg-success');
+            }, 2000);
+        }
+
+        //if error happens during connection
+        connection.start().catch( err => toastr.error("SignalR Connection Error: " + err.toString()));
+    </script>
+
 
 }

@@ -63,8 +63,7 @@ namespace PaymentApi.Controllers
                 bool isApplied = await _billingTransactionsRepository.DebitChargeApply(newCharge);
                 if (isApplied)
                 {
-                    //SignalR - params: methodName in client, [other]
-                    await _hubContext.Clients.All.SendAsync("paymentSuccessMethod", "This is my message");
+                    await _hubContext.Clients.All.SendAsync("systemMessageMethod", "This is a test message from SignalR ");
                     return Ok(newCharge);
                 }
                 return BadRequest();
@@ -98,6 +97,8 @@ namespace PaymentApi.Controllers
                 {
                     var paymentMethod = stripeEvent.Data.Object as PaymentMethod;
                     Console.WriteLine("PaymentMethod was attached to a Customer!");
+                    //SignalR - params: methodName in client, [other]
+                    await _hubContext.Clients.All.SendAsync("systemMessageMethod", "Posted: Paid with card ending " + paymentMethod.Card);
                 }
                 // ... handle other event types
                 else

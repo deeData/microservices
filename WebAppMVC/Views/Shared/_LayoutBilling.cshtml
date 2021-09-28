@@ -159,42 +159,6 @@
 
     @await RenderSectionAsync("Scripts", required: false)
 
-    @*Signal R*@
-    <script src="~/lib/signalr/dist/browser/signalr.js"></script>
-    <script>
-
-        var timerId;
-        //create connection obj to SignalR which is a bi-directional communication library
-        const connection = new signalR.HubConnectionBuilder()
-            .withUrl("https://localhost:44372/paidhub")
-            //debug and information available for logging
-            .configureLogging(signalR.LogLevel.Debug)
-            //automatically reconnect if connection drops
-            .withAutomaticReconnect().build();
-
-        connection.on("paymentSuccessMethod", (message) => {
-            const encodeMsg = message;
-            console.log('FROM SIGNALR---------------' + message);
-            if (message) {
-                console.log('YOU DID IT!!!!');
-                refreshPage();
-            }
-        });
-
-        function refreshPage() {
-            clearTimeout(timerId);
-            timerId = setTimeout(function () {
-                window.location.reload();
-            }, 2000);
-
-        }
-
-        //if error happens during connection
-        connection.start().catch( err => toastr.error("SignalR Connection Error: " + err.toString()));
-
-    </script>
-
-
 
 </body>
 

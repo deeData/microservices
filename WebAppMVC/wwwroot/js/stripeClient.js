@@ -55,7 +55,6 @@ var callStripe = function (amount) {
                 // Complete payment when the submit button is clicked
                 payWithCard(stripe, card, data.clientSecret, amount);
             });
-
             setUpmessage(data.clientSecret, amount);
 
         });
@@ -125,31 +124,26 @@ var loading = function (isLoading) {
 
 //------------------------my edits/addons-----------------------------
 var setUpmessage = function (clientToken, amount) {
+    var message = "$" + amount + " payment is ready to be processed (with Stripe client secret).";
+    var backgroundColor = "bg-warning";
     if (clientToken) {
-        var $res = $("#stripeResponse"); //id also used by Stripe's Client code
-        $res.removeClass("bg-danger");
-        $res.removeClass("bg-success");
-        $res.addClass("bg-warning");
-        $res.text("$" + amount + " payment is ready to be processed (with Stripe client secret).   ");
+        $("#stripeResponse").replaceWith('<span class=" ' + backgroundColor +' text-dark font-weight-bold card-text" id="stripeResponse"></span>');
+        $("#stripeResponse").text(message);
         $("#stripeResponseTime").text(dateTimeStamp(new Date()));
     }
 };
 
 var paymentMessage = function (amount) {
     var message = "Success: Payment of $" + amount + " is posted to the billing ledger.   ";
-    var $res = $("#stripeResponse");
-    $res.removeClass("bg-warning");
-    $res.addClass("bg-success");
-    $res.text(message);
+    var backgroundColor = "bg-success";
+    $("#stripeResponse").replaceWith('<span class=" ' + backgroundColor + ' text-light font-weight-bold card-text" id="stripeResponse"></span>');
+    $("#stripeResponse").text(message);
     $("#stripeResponseTime").text(dateTimeStamp(new Date()));
 };
 
-var generalMessage = function (message) {
-    var $res = $("#stripeResponse");
-    $res.removeClass("bg-danger");
-    $res.removeClass("bg-warning");
-    $res.addClass("bg-success");
-    $res.text(message);
+var generalMessage = function (message, backgroundColor) {
+    $("#stripeResponse").replaceWith('<span class=" ' + backgroundColor + ' text-light font-weight-bold card-text" id="stripeResponse"></span>');
+    $("#stripeResponse").text(message);
     $("#stripeResponseTime").text(dateTimeStamp(new Date()));
 };
 
