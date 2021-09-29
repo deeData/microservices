@@ -127,7 +127,7 @@ var setUpmessage = function (clientToken, amount) {
     var message = "$" + amount + " payment is ready to be processed (with Stripe client secret).";
     var backgroundColor = "bg-warning";
     if (clientToken) {
-        $("#stripeResponse").replaceWith('<span class=" ' + backgroundColor +' text-dark font-weight-bold card-text" id="stripeResponse"></span>');
+        $("#stripeResponse").replaceWith('<span class=" ' + backgroundColor +' text-light font-weight-bold card-text" id="stripeResponse"></span>');
         $("#stripeResponse").text(message);
         $("#stripeResponseTime").text(dateTimeStamp(new Date()));
     }

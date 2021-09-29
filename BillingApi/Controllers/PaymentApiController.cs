@@ -36,7 +36,6 @@ namespace PaymentApi.Controllers
             try
             {
                 List<LedgerItemDto> ledgerItemDtos = await _billingTransactionsRepository.GetAllTransactions();
-                Console.WriteLine("======*************************===================GET ALL LEDGER DATA");
                 return ledgerItemDtos;
             }
             catch (Exception e)
@@ -64,7 +63,6 @@ namespace PaymentApi.Controllers
                 bool isApplied = await _billingTransactionsRepository.DebitChargeApply(newCharge);
                 if (isApplied)
                 {
-                    await _hubContext.Clients.All.SendAsync("systemMessageMethod", "This is a test message from SignalR ");
                     return Ok(newCharge);
                 }
                 return BadRequest();
@@ -77,7 +75,7 @@ namespace PaymentApi.Controllers
         }
 
         //webhook connection with Stripe - get response from Stripe after web client sends payment data with a client secret to proccess a payment
-        //user stripe CLI for localhost
+        //use stripe CLI for localhost testing
         [HttpPost("webhook")]
         public async Task<IActionResult> StripeWebhook()
         {
@@ -96,6 +94,7 @@ namespace PaymentApi.Controllers
                     //var jObject = JObject.Parse(json);
                     //var last4 = jObject["data"]["object"]["payment_method_details"]["card"]["last4"].Value<string>();
                     Console.WriteLine($"Charge was successful! Last 4 of the card is { last4 }");
+                    await _hubContext.Clients.All.SendAsync("systemMessageMethod", "This is a test message from SignalR ");
                 }
                 // ... handle other event types
                 else

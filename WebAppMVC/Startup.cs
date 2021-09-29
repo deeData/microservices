@@ -1,6 +1,8 @@
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -9,6 +11,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using WebAppMVC.Models.Auth;
 using WebAppMVC.RestClients;
 
 namespace WebAppMVC
@@ -25,6 +28,12 @@ namespace WebAppMVC
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            //add connection for Identity Framework
+            services.AddDbContext<AuthDbContext>(options => 
+                options.UseSqlServer(Configuration.GetConnectionString("AuthConnection")));
+            //add Idenity Framework to db
+            services.AddIdentity<IdentityUser, IdentityRole>().AddEntityFrameworkStores<AuthDbContext>();
+
             //add http client as dependency injection for API calls using Refit 
             services.AddHttpClient<IBillingTransactionsApi, BillingTransactionsApi>();
 
@@ -50,6 +59,9 @@ namespace WebAppMVC
             app.UseStaticFiles();
 
             app.UseRouting();
+
+            //require user logins- Identity Framework
+            app.UseAuthentication();
 
             app.UseAuthorization();
             
