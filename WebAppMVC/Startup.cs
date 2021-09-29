@@ -13,6 +13,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using WebAppMVC.Models.Auth;
 using WebAppMVC.RestClients;
+using WebAppMVC.Services.Authentication;
 
 namespace WebAppMVC
 {
@@ -33,7 +34,9 @@ namespace WebAppMVC
                 options.UseSqlServer(Configuration.GetConnectionString("AuthConnection")));
             //add Idenity Framework to db
             services.AddIdentity<IdentityUser, IdentityRole>().AddEntityFrameworkStores<AuthDbContext>();
-
+            
+            //to be available to Controller via dependency injection
+            services.AddScoped<IRegisterModel, RegisterModel>();
             //add http client as dependency injection for API calls using Refit 
             services.AddHttpClient<IBillingTransactionsApi, BillingTransactionsApi>();
 

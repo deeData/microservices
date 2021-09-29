@@ -1,4 +1,6 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
+using Refit;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -22,6 +24,7 @@ namespace WebAppMVC.Controllers
             return View();
         }
 
+        [Microsoft.AspNetCore.Authorization.Authorize]
         [HttpGet]
         public async Task<IActionResult> Test()
         {
