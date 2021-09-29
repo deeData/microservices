@@ -1,4 +1,7 @@
-﻿<!DOCTYPE html>
+﻿@using Microsoft.AspNetCore.Identity
+@inject SignInManager<IdentityUser> SignInManager
+
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8" />
@@ -44,6 +47,18 @@
                         <li>
                             <a class="nav-link text-light" href="https://github.com/deeData/TimenDinero-Heroku" target="_blank">TimeInDinero (Node.js)</a>
                         </li>
+                        @{
+                            if (SignInManager.IsSignedIn(User))
+                            {
+                                <li class="nav-link text-light">Hello @User.Identity.Name</li>
+                                <li class="nav-link text-light"><a class="btn btn-primary" asp-controller="Home" asp-action="Logout">Logout</a></li>
+                            }
+                            else
+                            {
+                                <li class="nav-link text-light"><a asp-controller="Home" asp-action="Login" class="btn btn-primary">Login</a></li>
+                                <li class="nav-link text-light"><a asp-controller="Home" asp-action="Register" class="btn btn-secondary">Register</a></li>
+                            }
+                        }
                     </ul>
                 </div>
             </div>

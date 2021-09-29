@@ -17,15 +17,45 @@ namespace WebAppMVC.Controllers
     {
         private IRegisterModel _registerModel;
         private readonly ILogger<HomeController> _logger;
+        private readonly SignInManager<IdentityUser> _signInManager;
 
-        public HomeController(ILogger<HomeController> logger, IRegisterModel registerModel)
+        public HomeController(ILogger<HomeController> logger, IRegisterModel registerModel, SignInManager<IdentityUser> signInManager)
         {
             _logger = logger;
             _registerModel = registerModel;
+            _signInManager = signInManager;
         }
-
+        
         public IActionResult Index()
         {
+            return View();
+        }
+
+        [HttpGet]
+        public IActionResult Logout()
+        {
+            _signInManager.SignOutAsync();
+            return RedirectToAction("Index");
+        }
+
+        [HttpGet]
+        public IActionResult Login()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Login(Login model)
+        {
+            if (ModelState.IsValid)
+            {
+                var result = await _signInManager.PasswordSignInAsync(model.Email, model.Password, model.RememberMe, false);
+                if (result.Succeeded)
+                {
+                    return Redirect("https://localhost:44315/Billing/Test");
+                }
+                ModelState.AddModelError("", "Username or Password incorrect.");
+            }
             return View();
         }
 

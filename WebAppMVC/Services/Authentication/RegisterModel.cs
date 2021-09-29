@@ -12,7 +12,7 @@ namespace WebAppMVC.Services.Authentication
         private readonly UserManager<IdentityUser> userManager;
         private readonly SignInManager<IdentityUser> signInManager;
         
-        public Register Model { get; set; }
+        //public Register Model { get; set; }
 
         public RegisterModel(UserManager<IdentityUser> userManager, SignInManager<IdentityUser> signInManager)
         {
