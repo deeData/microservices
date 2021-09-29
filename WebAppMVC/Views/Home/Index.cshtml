@@ -1,7 +1,9 @@
-﻿@{
+﻿@using Microsoft.AspNetCore.Identity
+@inject SignInManager<IdentityUser> SignInManager
+
+@{
     ViewData["Title"] = "Home Page";
 }
-
 
 <!-- Background Video-->
 <video class="bg-video" playsinline="playsinline" autoplay="autoplay" muted="muted" loop="loop"><source src="assets/mp4/bg.mp4" type="video/mp4" style="z-index: 100;" /></video>
@@ -9,15 +11,19 @@
 <div class="masthead">
     <div class="masthead-content text-white">
         <div class="container-fluid px-4 px-lg-0" style="padding-top: 2rem;">
-            <h1 class="fst-italic lh-1 mb-4">Our Website is Coming Soon</h1>
-            <p class="mb-5">We're working hard to finish the development of this site. Sign up below to receive updates and to be notified when we launch!</p>
+            <h2 class="fst-italic lh-1 mb-4">Thank you for visiting my portfolio website!</h2>
+            <p class="mb-5">Please note that you will need to be logged in to see Billing SPA (C#) due to its Stripe integration.
+                However, projects Traffic ML (Python) and TimeInDinero (Node.js) are publicly available.</p>
             <form id="contactForm">
-                <!-- Email address input-->
-                <div class="row input-group-newsletter" style="padding-bottom: 2rem;">
-                    <div class="col-auto"><button class="btn btn-primary disabled" id="submitButton" type="submit">Sign Up</button></div>
-                    <div class="col-auto"><button class="btn btn-primary disabled" id="submitButton" type="submit">Log In</button></div>
-                </div>
-
+                @{
+                    if (!SignInManager.IsSignedIn(User))
+                    {
+                        <div class="row input-group-newsletter" style="padding-bottom: 2rem;">
+                            <div class="col-auto"><button class="btn btn-primary" asp-controller="Home" asp-action="Register">Register</button></div>
+                            <div class="col-auto"><button class="btn btn-primary" asp-controller="Home" asp-action="Login">Login</button></div>
+                        </div>
+                    }
+                }
             </form>
         </div>
     </div>
@@ -27,11 +33,14 @@
 <div class="social-icons">
     <div class="d-flex flex-row flex-lg-column justify-content-center align-items-center h-100 mt-3 mt-lg-0">
         <a data-placement="left" data-content="Coming Soon!" class="btn btn-dark m-3 popover-hover" href="#!">
-            <i class="fab fa-twitter"></i></a>
+            <i class="fab fa-twitter"></i>
+        </a>
         <a data-placement="left" data-content="Coming Soon!" class="btn btn-dark m-3 popover-hover" href="#!">
-            <i class="fab fa-facebook-f"></i></a>
+            <i class="fab fa-facebook-f"></i>
+        </a>
         <a data-placement="left" data-content="Coming Soon!" class="btn btn-dark m-3 popover-hover" href="#!">
-            <i class="fab fa-instagram"></i></a>
+            <i class="fab fa-instagram"></i>
+        </a>
     </div>
 </div>
 
