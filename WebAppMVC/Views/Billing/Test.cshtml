@@ -29,16 +29,19 @@
             @*ledger datable*@
             <table id="dataTable" class="table table-responsive table-striped table-bordered table-hover" data-s>
                 <thead>
-                    <tr>
-                        @*<th data-field="ledgerItemId" data-visible="true" hidden>LedgerItemId</th>*@
-                        <th data-field="posted" data-formatter="dateTimeStamp">Posted</th>
-                        <th data-field="description">Billing Entry</th>
-                        <th data-field="debit" data-formatter="currencyFormat">Debit</th>
-                        <th data-field="credit" data-formatter="currencyFormat">Credit</th>
-                        <th data-formatter="getBalance">Adjusted Balance</th>
-                        <th data-field="remarks">Remarks</th>
-                        <th data-field="user">Admin User</th>
-                    </tr>
+                    @if (myModel.Length > 0)
+                    {
+                        <tr>
+                            @*<th data-field="ledgerItemId" data-visible="true" hidden>LedgerItemId</th>*@
+                            <th data-field="posted" data-formatter="dateTimeStamp">Posted</th>
+                            <th data-field="description">Billing Entry</th>
+                            <th data-field="debit" data-formatter="currencyFormat">Debit</th>
+                            <th data-field="credit" data-formatter="currencyFormat">Credit</th>
+                            <th data-formatter="getBalance">Adjusted Balance</th>
+                            <th data-field="remarks">Remarks</th>
+                            <th data-field="user">Admin User</th>
+                        </tr>
+                    }
                 </thead>
             </table>
         </div>
@@ -77,7 +80,10 @@
                     @*HIDE UNDER USER SUBMITS PAYMENT AMOUNT*@
                     <div class="card-body" style="display: none" id="stripeWidget">
                         <div class="card-header mt-1">
-                            <h6 class="text-primary font-weight-bolder bg-light">Please enter test credit card info for payment processing. See "Payment Testing Options".</h6>
+                            <h6 class="text-primary font-weight-bolder bg-light">
+                                Please enter test credit card info for payment processing.
+                                See "Payment Testing Options". (Refresh for each transaction.)
+                            </h6>
                         </div>
                         <!-- Stripe payment widget -->
                         <form id="payment-form" class="container">
@@ -175,11 +181,11 @@
 
         //create connection obj to SignalR which is a bi-directional communication library
         const connection = new signalR.HubConnectionBuilder()
-        .withUrl("https://localhost:44372/paidhub")
-        //debug and information available for logging
-        .configureLogging(signalR.LogLevel.Debug)
-        //automatically reconnect if connection drops
-        .withAutomaticReconnect().build();
+            .withUrl("https://localhost:44372/paidhub")
+            //debug and information available for logging
+            .configureLogging(signalR.LogLevel.Debug)
+            //automatically reconnect if connection drops
+            .withAutomaticReconnect().build();
 
         //var timerId;
         connection.on("systemMessageMethod", (message) => {
@@ -196,7 +202,7 @@
         //}
 
         //if error happens during connection
-        connection.start().catch( err => toastr.error("SignalR Connection Error: " + err.toString()));
+        connection.start().catch(err => toastr.error("SignalR Connection Error: " + err.toString()));
     </script>
 
 

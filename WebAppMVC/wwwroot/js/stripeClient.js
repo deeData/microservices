@@ -138,7 +138,7 @@ function mockWebhookPaymentUpdate(amount) {
             jsonData.push(result);
             var $table = $('#dataTable')
             $table.bootstrapTable('load', jsonData);
-            var message = "$" + result['credit'] + " payment applied " + "from Card XXXX (mock-webhook cannot supply last 4 digits).";
+            var message = "$" + result['credit'] + " payment applied " + "from Card XXXX (mock-webhook cannot provide last 4 digits).";
             generalMessage(message, 'bg-primary');
         },
         error: function (jqXHR, textStatus, errorThrown) {
@@ -152,21 +152,13 @@ function mockWebhookPaymentUpdate(amount) {
 var spanString = ' text-light font-weight-bold card-text" id = "stripeResponse" ></span>';
 
 var setUpmessage = function (clientToken, amount) {
-    var message = "$" + amount + " payment is ready to be processed (with Stripe client secret).";
+    var message = "Payment of $"+amount+" is ready to be processed (with Stripe client token).";
     var backgroundColor = "bg-warning";
     if (clientToken) {
         $("#stripeResponse").replaceWith('<span class=" ' + backgroundColor + spanString);
         $("#stripeResponse").text(message);
         $("#stripeResponseTime").text(dateTimeStamp(new Date()));
     }
-};
-
-var paymentMessage = function (amount) {
-    var message = "Success: Payment of $" + amount + " is posted to the billing ledger.   ";
-    var backgroundColor = "bg-primary";
-    $("#stripeResponse").replaceWith('<span class=" ' + backgroundColor + spanString);
-    $("#stripeResponse").text(message);
-    $("#stripeResponseTime").text(dateTimeStamp(new Date()));
 };
 
 var generalMessage = function (message, backgroundColor) {

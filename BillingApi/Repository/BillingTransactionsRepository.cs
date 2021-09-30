@@ -40,9 +40,22 @@ namespace BillingApi.Repository
             }
         }
 
+        public async Task<bool> DeleteAllInLedger()
+        {
+            try
+            {
+                _db.LedgerItems.RemoveRange(_db.LedgerItems);
+                await _db.SaveChangesAsync();
+                return true;
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine("Unable to delete all ledger items! - Exception: " + e);
+                return false;
+            }
+        }
 
 
-       
 
-    }
+        }
 }

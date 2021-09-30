@@ -26,7 +26,7 @@
                 <span class="navbar-toggler-icon" data-bs-target="#offcanvasExample"></span>
             </button>
 
-            <a class="navbar-brand fw-bold me-auto" href="https://github.com/deeData/microservices" target="_blank">BillingMicroservice <i class="fab fa-github fa-lg"></i></a>
+            <a class="navbar-brand fw-bold me-auto" href="https://github.com/deeData/microservices" target="_blank">TrafficBilling <i class="fab fa-github fa-lg"></i></a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
@@ -75,19 +75,19 @@
                         <hr class="dropdown-divider" />
                     </li>
                     <li class="row">
-                        <div class="text-muted small fw-bold text-uppercase px-3 pt-3">Summary</div>
+                        <div class="text-white small fw-bold text-uppercase px-3">Welcome <br/> @User.Identity.Name</div>
                         <div class="col-11">
                             <div class="card-body">
                                 <p class="text-justify" style="color: #d3d3d3;">
                                     This single page application is in Test Mode. Please feel free to apply charges to the billing ledger and post payments.
-                                    Payment processing client responses are from Stripe's server; however, a mock webhook can only be for the test environment.
-                                    Github <a href="https://github.com/deeData/microservices" target="_blank"><i class="fab fa-github fa-lg"></i></a>
+                                    Payment processing client response is from Stripe's server; however, a mock webhook can only be used in the test environment.
+                                    Github <a href="https://github.com/deeData/microservices" target="_blank"><i class="fab fa-github fa-lg" style="color: white"></i></a>
                                 </p>
                             </div>
                         </div>
                     </li>
                     <li>
-                        <div class="text-muted small fw-bold text-uppercase px-3 pt-2">Administrator</div>
+                        <div class="text-muted small fw-bold text-uppercase px-3">Administrator</div>
                     </li>
                     @*Prescribed Billing Charges*@
                     <li class="row p-4">
@@ -122,9 +122,15 @@
                             <div class="mt-4">
                                 <button class="btn btn-danger" onclick="postCharge()">Charge to Ledger</button>
                             </div>
-                            <div class="">
-                                <button class="btn btn-outline-danger" style=" display: block; height: 100px; width: 100px; border-radius: 50%; 
-                                        border: 1px solid red;" onclick="playSound()">DO NOT PRESS BUTTON</button>
+                            <div class="container">
+                              <div class="row">
+                                  <div class="col text-center" style="padding: 40px; margin-top: 40px">
+                                    <button class="btn btn-outline-danger" style=" display: block; height: 100px; width: 100px; border-radius: 50%;
+                                        border: 1px solid red;" id="delButton" onclick="delButton(playSound)">
+                                        DO NOT PRESS BUTTON
+                                    </button>
+                                  </div>
+                               </div>
                             </div>
                         </div>
                     </li>
@@ -175,13 +181,6 @@
     @await RenderSectionAsync("Scripts", required: false)
 
     <audio id="audio" src="~/button-12.mp3" preload="none"></audio>
-    <script type="text/javascript">
-        function playSound() {
-            var sound = document.getElementById("audio");
-            sound.play();
-        }
-    </script>
-
 </body>
 
 </html>

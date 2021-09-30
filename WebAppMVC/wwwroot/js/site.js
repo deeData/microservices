@@ -67,7 +67,24 @@ function updateLedger() {
         url: "https://localhost:44372/api/payment",
         success: function (result) {
             var $table = $('#dataTable')
-            $table.bootstrapTable('load', result);
+            $table.bootstrapTable('reload', result);
+        },
+        error: function (jqXHR, textStatus, errorThrown) {
+            console.log(jqXHR, textStatus, errorThrown);
+        }
+    });
+}
+
+
+function delButton(callbackFunc) {
+    
+    $.ajax({
+        type: "GET",
+        dataType: "json",
+        contentType: 'application/json; charset=utf-8',
+        url: "https://localhost:44372/api/payment/delete",
+        success: function (result) {
+            callbackFunc();
         },
         error: function (jqXHR, textStatus, errorThrown) {
             console.log(jqXHR, textStatus, errorThrown);
@@ -95,7 +112,14 @@ var dateTimeStamp = function (dateInFirstColumn) {
     return (date.getMonth() + 1) + "/" + date.getDate() + "/" + date.getFullYear() + "  " + strTime;
 }
 
-
+function playSound() {
+    $("#delButton").notify("Purge All Data!", "warn");
+    var sound = document.getElementById("audio");
+    sound.play();
+    sound.onended = function () {
+        location.reload();
+    };
+}
 
 var currencyFormatter = new Intl.NumberFormat('en-US', {
     style: 'currency',
@@ -134,7 +158,12 @@ $(document).ready(function () {
     $table.bootstrapTable({
         data: jsonData
     });
-    $table.dataTable();
+    $table.dataTable({
+        columnDefs: [{
+            "defaultContent": "-",
+            "targets": "_all"
+        }]
+    });
 
 });
 

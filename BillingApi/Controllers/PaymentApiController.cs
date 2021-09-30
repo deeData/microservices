@@ -45,6 +45,19 @@ namespace PaymentApi.Controllers
             }
         }
 
+
+        [HttpGet("delete")]
+        public async Task<IActionResult> Delete()
+        {
+            bool areDeleted = await _billingTransactionsRepository.DeleteAllInLedger();
+            if (areDeleted)
+            {
+                return Ok(new LedgerItemDto());
+            }
+            return BadRequest();
+        }
+
+
         //ajax call from client sending debit charge, remark, userName
         [HttpPost("charge")]
         public async Task<IActionResult> Charge([FromBody] LedgerItemDto ledgerItem)
@@ -191,7 +204,7 @@ namespace PaymentApi.Controllers
                 }
                 return false;
             }
-            catch (Exception e)
+            catch (Exception)
             {
                 return false;
             }

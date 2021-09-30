@@ -11,5 +11,6 @@ namespace BillingApi.Repository
     {
         Task<bool> ApplyToLedger(LedgerItemDto ledgerItem);
         Task<List<LedgerItemDto>> GetAllTransactions();
+        Task<bool> DeleteAllInLedger();
     }
 }
