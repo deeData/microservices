@@ -97,7 +97,7 @@ var orderComplete = function (paymentIntentId, amount) {
         );
     $(".result-message").removeClass("hidden");
     $("button").disabled = true;
-    paymentMessage(amount);
+    mockWebhookPaymentUpdate(amount);
 };
 
 // Show the customer the error from Stripe if their card fails to charge
@@ -123,11 +123,39 @@ var loading = function (isLoading) {
 
 
 //------------------------my edits/addons-----------------------------
+function mockWebhookPaymentUpdate(amount) {
+    var jsonItem = {};
+    jsonItem.credit = amount;
+    jsonItem.user = $('#userId').attr('value');
+    $.ajax({
+        type: "POST",
+        data: JSON.stringify(jsonItem),
+        dataType: "json",
+        contentType: 'application/json; charset=utf-8',
+        //api request to
+        url: "https://localhost:44372/api/payment/mock-webhook",
+        success: function (result) {
+            jsonData.push(result);
+            var $table = $('#dataTable')
+            $table.bootstrapTable('load', jsonData);
+            var message = "$" + result['credit'] + " payment applied " + "from Card XXXX (mock-webhook cannot supply last 4 digits).";
+            generalMessage(message, 'bg-primary');
+        },
+        error: function (jqXHR, textStatus, errorThrown) {
+            console.log(jqXHR, textStatus, errorThrown);
+        }
+    });
+}
+
+
+
+var spanString = ' text-light font-weight-bold card-text" id = "stripeResponse" ></span>';
+
 var setUpmessage = function (clientToken, amount) {
     var message = "$" + amount + " payment is ready to be processed (with Stripe client secret).";
     var backgroundColor = "bg-warning";
     if (clientToken) {
-        $("#stripeResponse").replaceWith('<span class=" ' + backgroundColor +' text-light font-weight-bold card-text" id="stripeResponse"></span>');
+        $("#stripeResponse").replaceWith('<span class=" ' + backgroundColor + spanString);
         $("#stripeResponse").text(message);
         $("#stripeResponseTime").text(dateTimeStamp(new Date()));
     }
@@ -135,14 +163,14 @@ var setUpmessage = function (clientToken, amount) {
 
 var paymentMessage = function (amount) {
     var message = "Success: Payment of $" + amount + " is posted to the billing ledger.   ";
-    var backgroundColor = "bg-success";
-    $("#stripeResponse").replaceWith('<span class=" ' + backgroundColor + ' text-light font-weight-bold card-text" id="stripeResponse"></span>');
+    var backgroundColor = "bg-primary";
+    $("#stripeResponse").replaceWith('<span class=" ' + backgroundColor + spanString);
     $("#stripeResponse").text(message);
     $("#stripeResponseTime").text(dateTimeStamp(new Date()));
 };
 
 var generalMessage = function (message, backgroundColor) {
-    $("#stripeResponse").replaceWith('<span class=" ' + backgroundColor + ' text-light font-weight-bold card-text" id="stripeResponse"></span>');
+    $("#stripeResponse").replaceWith('<span class=" ' + backgroundColor + spanString);
     $("#stripeResponse").text(message);
     $("#stripeResponseTime").text(dateTimeStamp(new Date()));
 };

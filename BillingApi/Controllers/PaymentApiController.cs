@@ -45,9 +45,8 @@ namespace PaymentApi.Controllers
             }
         }
 
-        //ajax call from client sending debit charge and remark
+        //ajax call from client sending debit charge, remark, userName
         [HttpPost("charge")]
-        //public IActionResult Charge([FromBody]LedgerItemDto ledgerItem)
         public async Task<IActionResult> Charge([FromBody] LedgerItemDto ledgerItem)
         {
             LedgerItemDto newCharge = new LedgerItemDto();
@@ -60,7 +59,7 @@ namespace PaymentApi.Controllers
             //get ledger item and post to backend db
             try
             {
-                bool isApplied = await _billingTransactionsRepository.DebitChargeApply(newCharge);
+                bool isApplied = await _billingTransactionsRepository.ApplyToLedger(newCharge);
                 if (isApplied)
                 {
                     return Ok(newCharge);
@@ -69,32 +68,65 @@ namespace PaymentApi.Controllers
             }
             catch (Exception e)
             {
-                Console.WriteLine("ERORR CANNOT SAVE: "+e);
+                Console.WriteLine("ERORR CANNOT SAVE: " + e);
                 return BadRequest();
             }
         }
 
+        //server generates client secret (required by Stripe) and sends to Stripe to initialize
+        [HttpPost("secret")]
+        public ActionResult GetSecret([FromBody] PaymentIntentCreateRequest request)
+        {
+            var paymentIntents = new PaymentIntentService();
+            var paymentIntent = paymentIntents.Create(new PaymentIntentCreateOptions
+            {
+                //in cents
+                Amount = CalculateOrderAmount(request.Items),
+                Currency = "usd",
+            });
+
+            return Json(new { clientSecret = paymentIntent.ClientSecret });
+        }
+
         //webhook connection with Stripe - get response from Stripe after web client sends payment data with a client secret to proccess a payment
-        //use stripe CLI for localhost testing
+        //use stripe CLI for webhook communications from localhost testing
         [HttpPost("webhook")]
         public async Task<IActionResult> StripeWebhook()
         {
+            LedgerItemDto ledgerItemDto = new LedgerItemDto();
+            var signalRmessage = "";
             var json = await new StreamReader(HttpContext.Request.Body).ReadToEndAsync();
-
+            
             try
             {
                 //set throwOnApiVersionMismatch as "true" when in production
                 var stripeEvent = EventUtility.ParseEvent(json, throwOnApiVersionMismatch: false);
 
-                // Handle the event
+                //handle event
                 if (stripeEvent.Type == Events.ChargeSucceeded)
                 {
                     var charge = stripeEvent.Data.Object as Charge;
                     var last4 = charge.PaymentMethodDetails.Card.Last4;
+                    var remark = $"Payment from Card# {last4}";
+                    //in cents convert to dollars
+                    var credit = ((double)charge.Amount/(double)100);
+                    ledgerItemDto.Credit = credit;
+                    ledgerItemDto.Remarks = remark;
                     //var jObject = JObject.Parse(json);
                     //var last4 = jObject["data"]["object"]["payment_method_details"]["card"]["last4"].Value<string>();
-                    Console.WriteLine($"Charge was successful! Last 4 of the card is { last4 }");
-                    await _hubContext.Clients.All.SendAsync("systemMessageMethod", "This is a test message from SignalR ");
+                    
+                    bool isPaymentPosted = await PostPayment(ledgerItemDto);
+
+                    if (isPaymentPosted)
+                    {
+                        signalRmessage = $"Stripe confirmed payment of ${credit} was posted to the ledger. Card is 'x{ last4 }'";
+                    }
+                    else
+                    {
+                        signalRmessage = $"Unable to post confirmed Stripe payment of ${credit} to the ledger. Last 4 digits of the card is '{ last4 }'";
+                    }
+                    await _hubContext.Clients.All.SendAsync("systemMessageMethod", signalRmessage);
+
                 }
                 // ... handle other event types
                 else
@@ -110,18 +142,59 @@ namespace PaymentApi.Controllers
             }
         }
 
-        //server generates client secret (required by Stripe) and sends to Stripe to initialize
-        [HttpPost("secret")]
-        public ActionResult GetSecret([FromBody]PaymentIntentCreateRequest request)
+        //Pretend reponse from Stripe server to this Webhook with payment processing details-----FOR PORTFOLIO USE ONLY
+        //ajax call from client sending credit amount and userid
+        [HttpPost("mock-webhook")]
+        public async Task<IActionResult> MockWebhook([FromBody] LedgerItemDto ledgerItem)
         {
-            var paymentIntents = new PaymentIntentService();
-            var paymentIntent = paymentIntents.Create(new PaymentIntentCreateOptions
-            {
-                Amount = CalculateOrderAmount(request.Items),
-                Currency = "usd",
-            });
+            LedgerItemDto newPayment = new LedgerItemDto();
+            newPayment.Posted = DateTime.Now;
+            newPayment.Description = "Payment";
+            newPayment.Credit = ledgerItem.Credit;
+            newPayment.Remarks = "Visa Card# [N/A]";
+            newPayment.User = ledgerItem.User;
 
-            return Json(new { clientSecret = paymentIntent.ClientSecret });
+            //get ledger item and post to backend db
+            try
+            {
+                bool isApplied = await _billingTransactionsRepository.ApplyToLedger(newPayment);
+                if (isApplied)
+                {
+                    return Ok(newPayment);
+                }
+                return BadRequest();
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine("ERORR CANNOT SAVE: " + e);
+                return BadRequest();
+            }
+        }
+
+        //to be used with real webhook with Stripe
+        private async Task<bool> PostPayment(LedgerItemDto ledgerItem)
+        {
+            LedgerItemDto newPayment = new LedgerItemDto();
+            newPayment.Posted = DateTime.Now;
+            newPayment.Description = "Payment";
+            newPayment.Credit = ledgerItem.Credit;
+            newPayment.Remarks = ledgerItem.Remarks;
+            //grab userId from URL
+            newPayment.User = ledgerItem.User;
+
+            try
+            {
+                bool isApplied = await _billingTransactionsRepository.ApplyToLedger(newPayment);
+                if (isApplied)
+                {
+                    return true;
+                }
+                return false;
+            }
+            catch (Exception e)
+            {
+                return false;
+            }
         }
 
         private int CalculateOrderAmount(Item[] items)
@@ -131,24 +204,23 @@ namespace PaymentApi.Controllers
             // people from directly manipulating the amount on the client
 
             //LINQ iterating through IEnumerable of items
-            int cents = (int)(items.Sum(item => item.Amount * 100));
+            int cents = (int)(items.Sum(item => item.Amount * 100 ));
             return cents;
         }
-    }
 
-    public class Item
-    {
-        [JsonProperty("id")]
-        public string Id { get; set; }
+        public class Item
+        {
+            [JsonProperty("id")]
+            public string Id { get; set; }
 
-        [JsonProperty("amount")]
-        public double Amount { get; set; }
-    }
+            [JsonProperty("amount")]
+            public double Amount { get; set; }
+        }
 
-    public class PaymentIntentCreateRequest
-    {
-        [JsonProperty("items")]
-        public Item[] Items { get; set; }
+        public class PaymentIntentCreateRequest
+        {
+            [JsonProperty("items")]
+            public Item[] Items { get; set; }
+        }
     }
 }
-

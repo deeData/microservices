@@ -52,7 +52,7 @@
                         <div class="card-header mt-1 bg-dark">
                             <span class="card-header text-danger font-weight-bold">System Message</span><small><span id="stripeResponseTime"></span></small>
                             <div class="card-body">
-                                <span class="card-text bg-danger text-light font-weight-bold" id="stripeResponse">"Plase stand by......"</span>
+                                <span class="card-text bg-danger text-light font-weight-bold" id="stripeResponse">"Please stand by......"</span>
                             </div>
                         </div>
                     </div>
@@ -181,18 +181,19 @@
         //automatically reconnect if connection drops
         .withAutomaticReconnect().build();
 
-        var timerId;
+        //var timerId;
         connection.on("systemMessageMethod", (message) => {
             updateLedger();
-            displayMessage(message);
+            generalMessage(message, 'bg-primary');
+            //displayMessage(message);
         });
 
-        function displayMessage(message) {
-            clearTimeout(timerId);
-            timerId = setTimeout(function () {
-                generalMessage(message, 'bg-success');
-            }, 2000);
-        }
+        //function displayMessage(message) {
+        //    clearTimeout(timerId);
+        //    timerId = setTimeout(function () {
+        //        generalMessage(message, 'bg-primary');
+        //    }, 2000);
+        //}
 
         //if error happens during connection
         connection.start().catch( err => toastr.error("SignalR Connection Error: " + err.toString()));

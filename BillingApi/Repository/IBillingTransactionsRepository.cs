@@ -9,8 +9,7 @@ namespace BillingApi.Repository
 {
     public interface IBillingTransactionsRepository
     {
-        Task<bool> DebitChargeApply(LedgerItemDto ledgerItem);
-        Task<bool> CreditPaymentApply(LedgerItemDto ledgerItem);
+        Task<bool> ApplyToLedger(LedgerItemDto ledgerItem);
         Task<List<LedgerItemDto>> GetAllTransactions();
     }
 }

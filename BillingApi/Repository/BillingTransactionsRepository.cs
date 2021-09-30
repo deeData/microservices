@@ -23,7 +23,7 @@ namespace BillingApi.Repository
             return _mapper.Map<List<LedgerItemDto>>(ledgerItems);
         }
 
-        public async Task<bool> DebitChargeApply(LedgerItemDto ledgerItemDto)
+        public async Task<bool> ApplyToLedger(LedgerItemDto ledgerItemDto)
         {
             LedgerItem ledgerItem = _mapper.Map<LedgerItemDto, LedgerItem>(ledgerItemDto);
 
@@ -40,10 +40,9 @@ namespace BillingApi.Repository
             }
         }
 
-        public Task<bool> CreditPaymentApply(LedgerItemDto ledgerItem)
-        {
-            throw new NotImplementedException();
-        }
+
+
+       
 
     }
 }
