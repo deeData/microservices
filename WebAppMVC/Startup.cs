@@ -13,6 +13,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using WebAppMVC.Models.Auth;
 using WebAppMVC.RestClients;
+using WebAppMVC.Services;
 using WebAppMVC.Services.Authentication;
 
 namespace WebAppMVC
@@ -37,6 +38,7 @@ namespace WebAppMVC
             
             //to be available to Controller via dependency injection
             services.AddScoped<IRegisterModel, RegisterModel>();
+            services.AddScoped<IEmail, Email>();
             //add http client as dependency injection for API calls using Refit 
             services.AddHttpClient<IBillingTransactionsApi, BillingTransactionsApi>();
 

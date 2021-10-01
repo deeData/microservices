@@ -14,6 +14,8 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.IO;
 using System.Linq;
+using System.Net;
+using System.Net.Mail;
 using System.Threading.Tasks;
 
 namespace PaymentApi.Controllers
@@ -29,8 +31,36 @@ namespace PaymentApi.Controllers
             _hubContext = hubContext;
         }
 
+        [HttpPost("email")]
+        public IActionResult SendEmail(string message)
+        {
+            var fromEmail = "deeprop108@gmail.com";
+            var passwordFromEmail = "dee139139";
+            var toEmail = "deeprop108@gmail.com";
 
-        [HttpGet]
+            SmtpClient smtp = new SmtpClient("smtp.gmail.com", 587);
+
+            try
+            {
+                smtp.EnableSsl = true;
+                smtp.UseDefaultCredentials = false;
+                smtp.Credentials = new NetworkCredential(fromEmail, passwordFromEmail);
+                MailMessage emailObj = new MailMessage(fromEmail, toEmail);
+                emailObj.Subject = "Email SENT";
+                emailObj.Body = message;
+                smtp.Send(emailObj);
+
+                return Ok();
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine( "==============================" + e);
+                return BadRequest();
+            }
+
+        }
+
+            [HttpGet]
         public async Task<List<LedgerItemDto>> Get()
         {
             try

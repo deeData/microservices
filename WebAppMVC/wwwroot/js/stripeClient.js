@@ -155,7 +155,7 @@ var spanString = ' text-light font-weight-bold card-text" id = "stripeResponse" 
 
 var setUpmessage = function (clientToken, amount) {
     var message = "Payment of $"+amount+" is ready to be processed (with Stripe client token).";
-    var backgroundColor = "bg-info";
+    var backgroundColor = "bg-warning";
     if (clientToken) {
         $("#stripeResponse").replaceWith('<span class=" ' + backgroundColor + spanString);
         $("#stripeResponse").text(message);
