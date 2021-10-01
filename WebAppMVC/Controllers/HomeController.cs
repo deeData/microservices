@@ -64,6 +64,7 @@ namespace WebAppMVC.Controllers
         [HttpGet]
         public IActionResult Login()
         {
+            _email.SendEmailFromGmail("Visitor Logged into Billing SPA", "");
             return View();
         }
 

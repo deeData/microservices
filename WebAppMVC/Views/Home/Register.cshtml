@@ -1,42 +1,44 @@
 ﻿@using WebAppMVC.Models.Auth
 @model Register
 
-<div class="container mt-5">
-    <div class="row justify-content-center align-items-center">
-        <div class="col-sm-12 col-md-12 col-lg-4">
-            <h1 class="mb-3">Register</h1>
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
 
-            <form method="post">
-                <div asp-validation-summary="All" class="text-danger"></div>
-                @*inputs from user*@
-                <div class="mb-3">
-                    <label class="form-label" asp-for="Email">Email Address</label>
-                    <input type="email" asp-for="Email" class="form-control" />
-                    <span asp-validation-for="Email" class="text-danger"></span>
-                </div>
-                <div class="mb-3">
-                    <label class="form-label" asp-for="Password">Password</label>
-                    <input type="password" asp-for="Password" class="form-control" />
-                    <span asp-validation-for="Password" class="text-danger"></span>
-                </div>
-                <div class="mb-3">
-                    <label class="form-label" asp-for="ConfirmPassword">Confirm Password</label>
-                    <input type="password" asp-for="ConfirmPassword" class="form-control" />
-                    <span asp-validation-for="ConfirmPassword" class="text-danger"></span>
-                </div>
-                <div class="mb-3">
-                    <button type="submit" class="btn btn-primary">Register</button>
-                </div>
-            </form>
-            <a asp-controller="Home" asp-action="Login">Click To Login.</a>
+<!-- Background Video-->
+<video class="bg-video" playsinline="playsinline" autoplay="autoplay" muted="muted" loop="loop"><source src="~/assets/mp4/bg.mp4" type="video/mp4" style="z-index: 100;" /></video>
+<!-- Masthead-->
+<div class="masthead">
+    <div class="container mt-5 masthead-content text-white">
+        <div class="row justify-content-center align-items-center">
+            <div class="col-sm-12 col-md-12 col-lg-4">
+                <h1 class="mb-3">Register</h1>
+
+                <form method="post">
+                    <div asp-validation-summary="All" class="text-danger"></div>
+                    @*inputs from user*@
+                    <div class="mb-3">
+                        <label class="form-label" asp-for="Email">Email Address</label>
+                        <input type="email" asp-for="Email" class="form-control" />
+                        <span asp-validation-for="Email" class="text-danger"></span>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label" asp-for="Password">Password</label>
+                        <input type="password" asp-for="Password" class="form-control" />
+                        <span asp-validation-for="Password" class="text-danger"></span>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label" asp-for="ConfirmPassword">Confirm Password</label>
+                        <input type="password" asp-for="ConfirmPassword" class="form-control" />
+                        <span asp-validation-for="ConfirmPassword" class="text-danger"></span>
+                    </div>
+                    <div class="mb-3">
+                        <button type="submit" class="btn btn-primary">Register</button>
+                    </div>
+                </form>
+                <a class="text-info" asp-controller="Home" asp-action="Login">Click To Login.</a>
+            </div>
         </div>
     </div>
 </div>
 
-
-@{
-    
-
-
-
-}

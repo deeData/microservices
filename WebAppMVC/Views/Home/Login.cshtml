@@ -1,31 +1,41 @@
 ﻿@model WebAppMVC.Models.Auth.Login
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
 
-<div class="container mt-5">
-    <div class="row justify-content-center align-items-center">
-        <div class="col-sm-12 col-md-12 col-lg-4">
-            <h1 class="mb-3">Login</h1>
+<!-- Background Video-->
+<video class="bg-video" playsinline="playsinline" autoplay="autoplay" muted="muted" loop="loop"><source src="~/assets/mp4/bg.mp4" type="video/mp4" style="z-index: 100;" /></video>
+<!-- Masthead-->
+<div class="masthead">
+    <div class="container mt-5 masthead-content text-white">
+        <div class="container mt-5">
+            <div class="row justify-content-center align-items-center">
+                <div class="col-sm-12 col-md-12 col-lg-4">
+                    <h1 class="mb-3">Login</h1>
 
-            <form method="post">
-                <div asp-validation-summary="All" class="text-danger"></div>
-                <div class="mb-3">
-                    <label class="form-label" asp-for="@Model.Email"></label>
-                    <input type="email" asp-for="@Model.Email" class="form-control" />
-                    <span asp-validation-for="@Model.Email" class="text-danger"></span>
+                    <form method="post">
+                        <div asp-validation-summary="All" class="text-danger"></div>
+                        <div class="mb-3">
+                            <label class="form-label" asp-for="@Model.Email"></label>
+                            <input type="email" asp-for="@Model.Email" class="form-control" />
+                            <span asp-validation-for="@Model.Email" class="text-danger"></span>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label" asp-for="@Model.Password"></label>
+                            <input type="password" asp-for="@Model.Password" class="form-control" />
+                            <span asp-validation-for="@Model.Password" class="text-danger"></span>
+                        </div>
+                        <div class="mb-3 form-check">
+                            <input type="checkbox" asp-for="@Model.RememberMe" class="form-check-input" />
+                            <label class="form-check-label" asp-for="@Model.RememberMe">Remember Me?</label>
+                        </div>
+                        <div class="mb-3">
+                            <button type="submit" class="btn btn-primary">Login</button>
+                        </div>
+                    </form>
+                    <a class="text-info" asp-controller="Home" asp-action="Register">Click To Register.</a>
                 </div>
-                <div class="mb-3">
-                    <label class="form-label" asp-for="@Model.Password"></label>
-                    <input type="password" asp-for="@Model.Password" class="form-control" />
-                    <span asp-validation-for="@Model.Password" class="text-danger"></span>
-                </div>
-                <div class="mb-3 form-check">
-                    <input type="checkbox" asp-for="@Model.RememberMe" class="form-check-input" />
-                    <label class="form-check-label" asp-for="@Model.RememberMe">Remember Me?</label>
-                </div>
-                <div class="mb-3">
-                    <button type="submit" class="btn btn-primary">Login</button>
-                </div>
-            </form>
-            <a asp-controller="Home" asp-action="Register" >Click To Register.</a>
+            </div>
         </div>
     </div>
 </div>

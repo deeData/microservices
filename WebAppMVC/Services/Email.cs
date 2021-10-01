@@ -17,6 +17,7 @@ namespace WebAppMVC.Services
             _configuration = configuration ?? throw new ArgumentNullException(nameof(configuration));
         }
 
+        //needed to enable IMAP and allow unsecure apps in Gmail Settings
         public void SendEmailFromGmail(string emailSubject, string emailBody)
         {
             var fromEmail = _configuration.GetSection("Email").GetValue<string>("FromGoogleEmail");
