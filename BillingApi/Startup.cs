@@ -64,7 +64,7 @@ namespace PaymentProcessAPI
                                   builder =>
                                   {
                                       //need to specify origin for SignalR CORS
-                                      builder.WithOrigins("https://localhost:44315")
+                                      builder.WithOrigins(Configuration["AllowedUrls:WebApp"])
                                              .AllowAnyHeader()
                                              .AllowAnyMethod()
                                              .AllowCredentials();

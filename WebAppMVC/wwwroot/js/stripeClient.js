@@ -1,6 +1,7 @@
 // A reference to Stripe.js initialized with your real test publishable API key.
 var stripe = Stripe("pk_test_iJIKag44gtZYLPOvNj6bLCJH");
 
+
 var callStripe = function (amount) {
     // Disable the button until we have Stripe set up on the page
     // The items the customer wants to buy
@@ -9,7 +10,7 @@ var callStripe = function (amount) {
     };
 
     $("button").disabled = true;
-    fetch("https://localhost:44372/api/payment/secret", {
+    fetch( billingApiUrl + "/secret", {
         method: "POST",
         headers: {
             "Content-Type": "application/json"
@@ -132,11 +133,11 @@ function mockWebhookPaymentUpdate(amount) {
         data: JSON.stringify(jsonItem),
         dataType: "json",
         contentType: 'application/json; charset=utf-8',
-        //api request to
-        url: "https://localhost:44372/api/payment/mock-webhook",
+        url: billingApiUrl + "/mock-webhook",
         success: function (result) {
             jsonData.push(result);
-            var $table = $('#dataTable')
+            var $table = $('#dataTable');
+            runningTotal = 0;
             $table.bootstrapTable('load', jsonData);
             var message = "$" + result['credit'] + " payment applied " + "from Card XXXX (mock-webhook cannot provide last 4 digits).";
             generalMessage(message, 'bg-primary');
@@ -150,10 +151,11 @@ function mockWebhookPaymentUpdate(amount) {
 
 
 var spanString = ' text-light font-weight-bold card-text" id = "stripeResponse" ></span>';
+//var $stripe = $("#stripeResponse");
 
 var setUpmessage = function (clientToken, amount) {
     var message = "Payment of $"+amount+" is ready to be processed (with Stripe client token).";
-    var backgroundColor = "bg-warning";
+    var backgroundColor = "bg-info";
     if (clientToken) {
         $("#stripeResponse").replaceWith('<span class=" ' + backgroundColor + spanString);
         $("#stripeResponse").text(message);
@@ -183,5 +185,5 @@ $("#submitAmt").click(function () {
     $("#submitAmt").hide();
     callStripe(amount);
     $("#stripeWidget").fadeIn();
-    //$pay.val('');
+
 });

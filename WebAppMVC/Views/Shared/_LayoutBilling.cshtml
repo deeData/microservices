@@ -1,4 +1,8 @@
-﻿<!DOCTYPE html>
+﻿
+@using Microsoft.Extensions.Configuration
+@inject IConfiguration Configuration
+
+<!DOCTYPE html>
 <html lang="en">
 
 <head>
@@ -38,10 +42,16 @@
                     <li class="nav-item">
                         <a class="nav-link active text-secondary" aria-current="page" href="https://medium.com/@@deidra108?p=cbf3fd1bad00" target="_blank" id="link-text">Traffic ML (Python)</a>
                     </li>
+                    <li class="nav-item pt-2">
+                        <a href="https://github.com/deeData/Coursera_Capstone" target="_blank"><i class="fab fa-github fa-lg" style="color: gray"></i></a>
+                    </li>
                 </ul>
                 <ul class="navbar-nav mb-2 mb-lg-0">
                     <li class="nav-item">
-                        <a class="nav-link active text-secondary" aria-current="page" href="https://github.com/deeData/TimenDinero-Heroku" target="_blank" id="link-text">TimeInDinero (Node.js)</a>
+                        <a class="nav-link active text-secondary" aria-current="page" href="https://timendinero.herokuapp.com/" target="_blank" id="link-text">TimeInDinero (Node.js)</a>
+                    </li>
+                    <li class="nav-item pt-2">
+                        <a href="https://github.com/deeData/TimenDinero-Heroku" target="_blank"><i class="fab fa-github fa-lg" style="color:gray"></i></a>
                     </li>
                 </ul>
                 <ul>
@@ -75,13 +85,12 @@
                         <hr class="dropdown-divider" />
                     </li>
                     <li class="row">
-                        <div class="text-white small fw-bold text-uppercase px-3">Welcome <br/> @User.Identity.Name</div>
+                        <div class="text-white small fw-bold text-uppercase px-3">Welcome <br /> @User.Identity.Name</div>
                         <div class="col-11">
                             <div class="card-body">
                                 <p class="text-justify" style="color: #d3d3d3;">
                                     This single page application is in Test Mode. Please feel free to apply charges to the billing ledger and post payments.
-                                    Payment processing client response is from Stripe's server; however, a mock webhook can only be used in the test environment.
-                                    Github <a href="https://github.com/deeData/microservices" target="_blank"><i class="fab fa-github fa-lg" style="color: white"></i></a>
+                                    Client response for payment processing is from Stripe's server; however, a mock webhook can only be used in a non-local test environment.
                                 </p>
                             </div>
                         </div>
@@ -93,7 +102,7 @@
                     <li class="row p-4">
                         <div class="">
                             <div class="dropdown">
-                                <button class="btn btn-success dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <button class="btn btn-info dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                     Select Charge/Fine
                                 </button>
                                 <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton" id="amounts">
@@ -115,22 +124,22 @@
                                     </li>
                                 </ul>
                             </div>
-                            <input id="userId" value="@User.Identity.Name" type="hidden"/>
+                            <input id="userId" value="@User.Identity.Name" type="hidden" />
                             <div class="mt-4">
-                                <input class="form-control" type="text" id="amt" readonly />
+                                <input class="form-control" type="text" id="amt" readonly"/>
                             </div>
                             <div class="mt-4">
-                                <button class="btn btn-danger" onclick="postCharge()">Charge to Ledger</button>
+                                <button class="btn btn-success" onclick="postCharge()">Charge to Ledger</button>
                             </div>
                             <div class="container">
-                              <div class="row">
-                                  <div class="col text-center" style="padding: 40px; margin-top: 40px">
-                                    <button class="btn btn-outline-danger" style=" display: block; height: 100px; width: 100px; border-radius: 50%;
+                                <div class="row">
+                                    <div class="col text-center" style="padding: 40px; margin-top: 40px">
+                                        <button class="btn btn-outline-danger" style=" display: block; height: 100px; width: 100px; border-radius: 50%;
                                         border: 1px solid red;" id="delButton" onclick="delButton(playSound)">
-                                        DO NOT PRESS BUTTON
-                                    </button>
-                                  </div>
-                               </div>
+                                            DO NOT PRESS BUTTON
+                                        </button>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </li>
@@ -177,6 +186,10 @@
 
     <!--includes popover library using BS, all other custom code-->
     <script src="~/js/site.js"></script>
+
+    <script>
+         const billingApiUrl= @Json.Serialize(@Configuration.GetSection("ServiceUrls").GetSection("BillingApi").Value);
+    </script>
 
     @await RenderSectionAsync("Scripts", required: false)
 

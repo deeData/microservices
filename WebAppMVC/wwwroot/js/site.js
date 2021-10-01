@@ -40,11 +40,12 @@ function postCharge() {
             //type sent to server
             contentType: 'application/json; charset=utf-8',
             //api request to
-            url: "https://localhost:44372/api/payment/charge",
+            url: billingApiUrl + "/charge",
             //if response is successful
             success: function (result) {
                 jsonData.push(result);
-                var $table = $('#dataTable')
+                var $table = $('#dataTable');
+                runningTotal = 0;
                 $table.bootstrapTable('load', jsonData);
                 var message = "Charge of $" + result['debit'] * -1 + " for " + result['remarks'] + " is posted to the billing ledger.";
                 generalMessage(message, 'bg-success');
@@ -64,7 +65,7 @@ function updateLedger() {
         type: "GET",
         dataType: "json",
         contentType: 'application/json; charset=utf-8',
-        url: "https://localhost:44372/api/payment",
+        url: billingApiUrl,
         success: function (result) {
             var $table = $('#dataTable')
             $table.bootstrapTable('reload', result);
@@ -82,7 +83,7 @@ function delButton(callbackFunc) {
         type: "GET",
         dataType: "json",
         contentType: 'application/json; charset=utf-8',
-        url: "https://localhost:44372/api/payment/delete",
+        url: billingApiUrl + "/delete",
         success: function (result) {
             callbackFunc();
         },

@@ -181,7 +181,7 @@
 
         //create connection obj to SignalR which is a bi-directional communication library
         const connection = new signalR.HubConnectionBuilder()
-            .withUrl("https://localhost:44372/paidhub")
+            .withUrl(billingApiUrl + "/paidhub")
             //debug and information available for logging
             .configureLogging(signalR.LogLevel.Debug)
             //automatically reconnect if connection drops
@@ -191,15 +191,7 @@
         connection.on("systemMessageMethod", (message) => {
             updateLedger();
             generalMessage(message, 'bg-primary');
-            //displayMessage(message);
         });
-
-        //function displayMessage(message) {
-        //    clearTimeout(timerId);
-        //    timerId = setTimeout(function () {
-        //        generalMessage(message, 'bg-primary');
-        //    }, 2000);
-        //}
 
         //if error happens during connection
         connection.start().catch(err => toastr.error("SignalR Connection Error: " + err.toString()));

@@ -51,17 +51,29 @@
                                     <a class="nav-link text-light" asp-area="" asp-controller="Home" asp-action="Login">Traffic Billing SPA (C#)</a>
                                 </li>
                             }
+                            <li class="pt-2 pr-4">
+                                <a href="https://github.com/deeData/microservices" target="_blank"><i class="fab fa-github fa-lg" style="color: white"></i></a>
+                            </li>
+
                         }
                         <li>
                             <a class="nav-link text-light" href="https://medium.com/@@deidra108?p=cbf3fd1bad00" target="_blank">Traffic ML (Python)</a>
                         </li>
-                        <li>
-                            <a class="nav-link text-light" href="https://github.com/deeData/TimenDinero-Heroku" target="_blank">TimeInDinero (Node.js)</a>
+                        <li class="pt-2 pr-4">
+                            <a href="https://github.com/deeData/Coursera_Capstone" target="_blank"><i class="fab fa-github fa-lg" style="color: white"></i></a>
                         </li>
+                        <li>
+                            <a class="nav-link text-light" href="https://timendinero.herokuapp.com/" target="_blank">TimeInDinero (Node.js)</a>
+                        </li>
+                        <li class="pt-2 pr-4">
+                            <a href="https://github.com/deeData/TimenDinero-Heroku" target="_blank"><i class="fab fa-github fa-lg" style="color: white"></i></a>
+                        </li>
+                    </ul>
+                    <ul class="navbar-nav flex-grow-1">
                         @{
                             if (SignInManager.IsSignedIn(User))
                             {
-                                <li class="nav-link text-light">Hello @User.Identity.Name</li>
+                                <li class="nav-link text-light mt-2">Hello @User.Identity.Name</li>
                                 <li class="nav-link text-light"><a class="btn btn-primary" asp-controller="Home" asp-action="Logout">Logout</a></li>
                             }
                         }
