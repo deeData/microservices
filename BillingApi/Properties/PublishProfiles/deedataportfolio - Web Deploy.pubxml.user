@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+This file is used by the publish/package process of your Web project. You can customize the behavior of this process
+by editing this MSBuild file. In order to learn more about this please visit https://go.microsoft.com/fwlink/?LinkID=208121. 
+-->
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <TimeStampOfAssociatedLegacyPublishXmlFile />
+    <EncryptedPassword>AQAAANCMnd8BFdERjHoAwE/Cl+sBAAAAOW8EMmsVGUq9m619ChPSqAAAAAACAAAAAAAQZgAAAAEAACAAAAAB2XZyGZbHd9509fQLCgFQbFG/EOXnhRmiYSCCCnBt9QAAAAAOgAAAAAIAACAAAABFZTenfMYFtbxbuBefbw5LtejijEk8MaNeu5DGeX49DoAAAABQdBGGYqWidcGs/o6IGWgrk96ilYvCDWp0bqUdk3hrPOHfqCrgvuNDTswhH6dNVnswFJdS8EW824PwedKKXdP0O+bt7gXqWdIQyU31GK/vPsHzqmXtKu5lS1PdglAYneSGhvxMvQLmyE3Moktll0oURv1P/8q65MKR50Qr1ndzBEAAAABId7mXM8QCEOe8makUFD54iLtlFTYLHKeb+uIFvNOH3ktHZsREQkrUHYXAlfO2gFVQq12Yp1c6P9CUt1MOJTpA</EncryptedPassword>
+    <History>True|2021-10-01T22:56:05.8331993Z;True|2021-10-01T16:42:41.0422060-06:00;True|2021-10-01T16:23:56.6589429-06:00;True|2021-10-01T16:14:34.0477494-06:00;True|2021-10-01T16:11:27.8122777-06:00;True|2021-10-01T15:56:18.1033169-06:00;True|2021-10-01T15:41:08.5768141-06:00;True|2021-10-01T15:35:13.3585468-06:00;False|2021-10-01T15:30:03.7463539-06:00;True|2021-10-01T15:22:46.4859341-06:00;True|2021-10-01T15:07:53.7671415-06:00;</History>
+  </PropertyGroup>
+  <ItemGroup>
+    <EFMigrations Include="BillingApi.DbContexts.ApplicationDbContext">
+      <Value>Server=tcp:billingapidbserver.database.windows.net,1433%3bInitial Catalog=BillingApi_db%3bPersist Security Info=False%3bUser ID=adminuser%3bPassword=Dee139139!%3bMultipleActiveResultSets=False%3bEncrypt=True%3bTrustServerCertificate=False%3bConnection Timeout=30%3b</Value>
+    </EFMigrations>
+  </ItemGroup>
+</Project>

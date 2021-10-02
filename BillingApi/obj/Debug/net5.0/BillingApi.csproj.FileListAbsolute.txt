@@ -99,3 +99,4 @@ C:\Users\deidr\repos\microservices\MicroServicesSolution\BillingApi\bin\Debug\ne
 C:\Users\deidr\repos\microservices\MicroServicesSolution\BillingApi\bin\Debug\net5.0\MailKit.dll
 C:\Users\deidr\repos\microservices\MicroServicesSolution\BillingApi\bin\Debug\net5.0\MimeKit.dll
 C:\Users\deidr\repos\microservices\MicroServicesSolution\BillingApi\bin\Debug\net5.0\BouncyCastle.Crypto.dll
+C:\Users\deidr\repos\microservices\MicroServicesSolution\BillingApi\bin\Debug\net5.0\appsettings.production.json

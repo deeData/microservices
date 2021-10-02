@@ -1,2 +1,3 @@
 /BillingApi/appsettings.json
 /WebAppMVC/appsettings.json
+**/appsettings.*.json

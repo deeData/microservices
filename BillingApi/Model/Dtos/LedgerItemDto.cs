@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
@@ -9,6 +10,7 @@ namespace BillingApi.Model.Dtos
     public class LedgerItemDto
     {
         [Key]
+        [JsonIgnore] // will hide from swagger body
         public int LedgerItemId { get; set; }
         public DateTime Posted { get; set; }
         public string Description { get; set; }

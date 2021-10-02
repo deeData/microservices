@@ -58,7 +58,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="card-header mt-2">
+                    <div class="card-header mt-2 bg-info text-dark">
                         Payment Processing
                         <i class="bi bi-arrow-counterclockwise float-end popover-hover" data-content="Refresh for every new payment transaction."></i>
                     </div>
@@ -107,7 +107,7 @@
                 <div class="card-header mt-1">Payment Testing Options</div>
                 <div class="card-body">
                     <h5 class="card-title">Stripe Integration Testing</h5>
-                    <p class="card-text">
+                    <p class="card-text" style="color: #d3d3d3;">
                         Genuine card information cannot be used in test mode. Instead, use any of the following test card numbers,
                         a valid expiration date in the future, and any random CVC number, to create a successful payment. Each basic test card’s billing country is set to U.S.
                     </p>
@@ -124,7 +124,7 @@
                                 </div>
                             </div>
                             <div class="col-6 rounded-end">
-                                <p class="m-1">Visa credit card for successful payment.</p>
+                                <p class="m-1" style="color: #d3d3d3;">Visa credit card for successful payment.</p>
                             </div>
                         </div>
                         <div class="row mb-1">
@@ -135,7 +135,7 @@
                                 </div>
                             </div>
                             <div class="col-6 rounded-end">
-                                <p class="m-1">Charge is declined with a card_declined code.</p>
+                                <p class="m-1" style="color: #d3d3d3;">Charge is declined with a card_declined code.</p>
                             </div>
                         </div>
                         <div class="row mb-1">
@@ -146,7 +146,7 @@
                                 </div>
                             </div>
                             <div class="col-6 rounded-end">
-                                <p class="m-1">
+                                <p class="m-1" style="color: #d3d3d3;">
                                     3D Secure 2 authentication must be completed for the payment to be successful.
                                     By default, your Radar rules will request 3D Secure authentication for this card.
                                 </p>
@@ -193,7 +193,7 @@
         });
 
         //if error happens during connection
-        connection.start().catch(err => toastr.error("SignalR Connection Error: " + err.toString()));
+        connection.start().catch(err => console.log("SignalR Connection Error: " + err.toString()));
     </script>
 
 

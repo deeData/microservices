@@ -88,9 +88,9 @@
                         <div class="text-white small fw-bold text-uppercase px-3">Welcome <br /> @User.Identity.Name</div>
                         <div class="col-11">
                             <div class="card-body">
-                                <p class="text-justify" style="color: #d3d3d3;">
-                                    This single page application is in Test Mode. Please feel free to apply charges to the billing ledger and post payments.
-                                    Client response for payment processing is from Stripe's server; however, a mock webhook can only be used in a non-local test environment.
+                                <p class="text-justify">
+                                    This single page application is in Test Mode. Please feel free to apply charges to the billing ledger and post payments (or maybe more).
+                                    Client response for payment processing is from Stripe's server; however, Stripe's webhook communications cannot be used in a non-local test environment.
                                 </p>
                             </div>
                         </div>
@@ -133,7 +133,7 @@
                             </div>
                             <div class="container">
                                 <div class="row">
-                                    <div class="col text-center" style="padding: 40px; margin-top: 40px">
+                                    <div class="col text-center" style="padding: 40px;">
                                         <button class="btn btn-outline-danger" style=" display: block; height: 100px; width: 100px; border-radius: 50%;
                                         border: 1px solid red;" id="delButton" onclick="delButton(playSound)">
                                             DO NOT PRESS BUTTON
@@ -150,7 +150,7 @@
     </div>
 
     @*main*@
-    <main class="mt-5 pt-3 container-fluid">
+    <main class="mt-5 pt-3 container">
         @RenderBody()
 
     </main>

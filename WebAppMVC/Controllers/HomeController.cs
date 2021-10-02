@@ -26,7 +26,6 @@ namespace WebAppMVC.Controllers
         private readonly ILogger<HomeController> _logger;
         private readonly SignInManager<IdentityUser> _signInManager;
         private readonly IConfiguration _configuration;
-        private IEmail _email;
        
         private string WebAppUrl
         {
@@ -37,15 +36,13 @@ namespace WebAppMVC.Controllers
             }
         }
 
-        public HomeController(ILogger<HomeController> logger, IRegisterModel registerModel, SignInManager<IdentityUser> signInManager, 
-            IConfiguration configuration, IEmail email)
+        public HomeController(ILogger<HomeController> logger, IRegisterModel registerModel, SignInManager<IdentityUser> signInManager, IConfiguration configuration)
         {
             _logger = logger ?? throw new ArgumentNullException(nameof(logger));
             _registerModel = registerModel ?? throw new ArgumentNullException(nameof(registerModel));
             _signInManager = signInManager ?? throw new ArgumentNullException(nameof(signInManager));
             //string webAppUrl = configuration.GetValue<string>("WebAppUrl");
             _configuration = configuration ?? throw new ArgumentNullException(nameof(configuration));
-            _email = email ?? throw new ArgumentNullException(nameof(email));
 
         }
 
@@ -64,7 +61,6 @@ namespace WebAppMVC.Controllers
         [HttpGet]
         public IActionResult Login()
         {
-            _email.SendEmailFromGmail("Visitor Logged into Billing SPA", "");
             return View();
         }
 
